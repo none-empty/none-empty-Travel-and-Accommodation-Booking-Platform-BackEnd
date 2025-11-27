@@ -9,7 +9,6 @@ public class Room
     public Guid HotelId { get; set; }   
 
     public int RoomNumber { get; set; }
-    public int FloorNumber { get; set; }
     public int AdultsCapacity { get; set; }
     public int ChildrenCapacity { get; set; }
     public RoomStatus Status { get; set; }
