@@ -1,7 +1,12 @@
- 
+using Microsoft.EntityFrameworkCore;
+using Travel_and_Accommodation_Booking_Platform.DB.AppDbContextFiles;
+
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetSection("connectionStrings")?["sqlserver"])
+);
  
 builder.Services.AddOpenApi();
 
