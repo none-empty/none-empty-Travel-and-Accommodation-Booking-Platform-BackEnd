@@ -49,6 +49,10 @@ public partial class AppDbContext
                 t.HasCheckConstraint("CK_Hotel_StarRating_InRange", "[StarRating] BETWEEN 1 AND 5")
             );
             
+            entity.ToTable(t => t.HasCheckConstraint(
+                "CK_Hotel_PhoneNumber_ValidFormat",
+                "[PhoneNumber] NOT LIKE '%[^0-9]%' AND LEN(PhoneNumber) BETWEEN 7 AND 15"
+            ));
         });
 
         //
@@ -144,6 +148,11 @@ public partial class AppDbContext
             
             entity.HasIndex(user => user.Email)
                 .IsUnique();
+            
+            entity.ToTable(t => t.HasCheckConstraint(
+                "CK_User_PhoneNumber_ValidFormat",
+                "[PhoneNumber] NOT LIKE '%[^0-9]%' AND LEN(PhoneNumber) BETWEEN 7 AND 15"
+            ));
         });
 
         //

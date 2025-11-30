@@ -15,7 +15,8 @@ public class Hotel
     public decimal PricePerNight { get; set; }
     public string? Description { get; set; }
     public string Address { get; set; } = null!;
-
+    public string PhoneNumber { get; set; } = null!;
+    
     // Navigation (optional reference)
     public City? City { get; set; }
 
