@@ -134,6 +134,10 @@ namespace Travel_and_Accommodation_Booking_Platform.DB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("PricePerNight")
                         .HasColumnType("decimal(34,2)");
 
@@ -149,6 +153,8 @@ namespace Travel_and_Accommodation_Booking_Platform.DB.Migrations
 
                     b.ToTable("Hotels", t =>
                         {
+                            t.HasCheckConstraint("CK_Hotel_PhoneNumber_ValidFormat", "[PhoneNumber] NOT LIKE '%[^0-9]%' AND LEN(PhoneNumber) BETWEEN 7 AND 15");
+
                             t.HasCheckConstraint("CK_Hotel_PricePerNight_NonNegative", "[PricePerNight] >= 0");
 
                             t.HasCheckConstraint("CK_Hotel_StarRating_InRange", "[StarRating] BETWEEN 1 AND 5");
@@ -305,6 +311,10 @@ namespace Travel_and_Accommodation_Booking_Platform.DB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -320,6 +330,8 @@ namespace Travel_and_Accommodation_Booking_Platform.DB.Migrations
                     b.ToTable("Users", t =>
                         {
                             t.HasCheckConstraint("CK_User_Email_ValidFormat", "[Email] LIKE '_%@_%._%'");
+
+                            t.HasCheckConstraint("CK_User_PhoneNumber_ValidFormat", "[PhoneNumber] NOT LIKE '%[^0-9]%' AND LEN(PhoneNumber) BETWEEN 7 AND 15");
                         });
                 });
 
