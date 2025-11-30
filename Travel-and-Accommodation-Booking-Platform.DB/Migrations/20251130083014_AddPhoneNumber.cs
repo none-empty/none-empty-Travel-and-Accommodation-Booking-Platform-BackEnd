@@ -13,14 +13,16 @@ namespace Travel_and_Accommodation_Booking_Platform.DB.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "PhoneNumber",
                 table: "Users",
-                type: "nvarchar(max)",
+                type: "nvarchar(15)",
+                maxLength: 15,
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "PhoneNumber",
                 table: "Hotels",
-                type: "nvarchar(max)",
+                type: "nvarchar(15)",
+                maxLength: 15,
                 nullable: false,
                 defaultValue: "");
 

@@ -40,6 +40,7 @@ public partial class AppDbContext
                 .HasMaxLength(200);
             
             entity.Property(hotel => hotel.PricePerNight).HasColumnType("decimal(34,2)");
+            entity.Property(hotel => hotel.PhoneNumber).HasMaxLength(15);
             
             entity.ToTable(t => 
                 t.HasCheckConstraint("CK_Hotel_PricePerNight_NonNegative", "[PricePerNight] >= 0")
@@ -148,7 +149,8 @@ public partial class AppDbContext
             
             entity.HasIndex(user => user.Email)
                 .IsUnique();
-            
+
+            entity.Property(user => user.PhoneNumber).HasMaxLength(15);
             entity.ToTable(t => t.HasCheckConstraint(
                 "CK_User_PhoneNumber_ValidFormat",
                 "[PhoneNumber] NOT LIKE '%[^0-9]%' AND LEN(PhoneNumber) BETWEEN 7 AND 15"
