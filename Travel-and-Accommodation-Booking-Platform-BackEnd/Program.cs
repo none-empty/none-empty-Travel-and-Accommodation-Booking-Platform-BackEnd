@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Authentication.AccessTokens;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
 using Travel_and_Accommodation_Booking_Platform.DB.AppDbContextFiles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +18,7 @@ builder.Services.Configure<JwtSettings>(
         builder.Configuration.GetSection(JwtSettings.SectionName));
 
 builder.Services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
-builder.Services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
+ 
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
