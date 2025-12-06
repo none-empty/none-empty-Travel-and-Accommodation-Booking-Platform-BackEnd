@@ -1,6 +1,6 @@
-using Travel_and_Accommodation_Booking_Platform.DB.DatabaseModels;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
-namespace Travel_and_Accommodation_Booking_Platform.DB.RefreshTokensFiles;
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokensFiles;
 
 public class RefreshToken
 {

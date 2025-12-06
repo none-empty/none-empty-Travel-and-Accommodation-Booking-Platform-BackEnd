@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Travel_and_Accommodation_Booking_Platform.DB.DatabaseModels;
-using Travel_and_Accommodation_Booking_Platform.DB.RefreshTokensFiles;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokensFiles;
 
 namespace Travel_and_Accommodation_Booking_Platform.DB.AppDbContextFiles;
 

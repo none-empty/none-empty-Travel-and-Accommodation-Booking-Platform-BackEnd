@@ -1,4 +1,4 @@
-namespace Travel_and_Accommodation_Booking_Platform.DB.DatabaseModels;
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
 public class HotelAmenity
 {
