@@ -1,11 +1,13 @@
+ 
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 
-namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Authentication.AccessTokens;
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
 
 public class JwtTokenGenerator : ITokenGenerator
 {
