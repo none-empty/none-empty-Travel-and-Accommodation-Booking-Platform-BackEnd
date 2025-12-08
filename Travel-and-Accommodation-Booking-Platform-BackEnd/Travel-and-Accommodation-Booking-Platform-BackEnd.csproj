@@ -21,7 +21,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Travel-and-Accommodation-Booking-Platform-BackEnd.Infrastructure\Travel-and-Accommodation-Booking-Platform-BackEnd.Infrastructure.csproj" />
-      <ProjectReference Include="..\Travel-and-Accommodation-Booking-Platform.DB\Travel-and-Accommodation-Booking-Platform.DB.csproj" />
     </ItemGroup>
 
 </Project>

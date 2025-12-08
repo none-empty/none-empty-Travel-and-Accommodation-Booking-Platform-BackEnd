@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistrations;
-using Travel_and_Accommodation_Booking_Platform.DB.AppDbContextFiles;
+using AppDbContext = Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles.AppDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;

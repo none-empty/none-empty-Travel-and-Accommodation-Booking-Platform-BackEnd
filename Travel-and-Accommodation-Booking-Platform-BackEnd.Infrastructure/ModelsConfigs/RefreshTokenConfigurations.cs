@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokensFiles;
 
-namespace Travel_and_Accommodation_Booking_Platform.DB.ModelsConfigs;
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.ModelsConfigs;
 
 internal sealed class RefreshTokenConfigurations : IEntityTypeConfiguration<RefreshToken>
 {
