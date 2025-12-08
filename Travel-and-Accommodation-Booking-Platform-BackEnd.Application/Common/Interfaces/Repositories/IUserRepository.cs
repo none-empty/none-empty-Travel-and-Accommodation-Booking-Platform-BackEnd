@@ -5,5 +5,5 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.I
 public interface IUserRepository : IRepository<User>
 {
     Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken);
-    Task<bool> ExistsByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken);
+    Task<bool> ExistsByUserNameAsync(string phoneNumber, CancellationToken cancellationToken);
 }
