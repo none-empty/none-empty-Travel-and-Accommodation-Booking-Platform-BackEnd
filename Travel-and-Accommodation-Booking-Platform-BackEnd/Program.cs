@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistrations;
 using Travel_and_Accommodation_Booking_Platform.DB.AppDbContextFiles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +41,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 builder.Services.AddOpenApi();
-
+builder.Services.AddMapperlyMappings();
 var app = builder.Build();
 
 app.UseAuthentication();
