@@ -6,6 +6,8 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokensFiles;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Settings;
 
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
 
@@ -13,10 +15,16 @@ public class JwtTokenGenerator : ITokenGenerator
 {
     private readonly byte[] _keyInBytes;
     private readonly JwtSettings _jwtSettings;
-    public JwtTokenGenerator(IOptions<JwtSettings> keyOptions)
+    private readonly RefreshTokenSettings _refreshTokenSettings;
+    private readonly IGuidGenerator _guidGenerator;
+    
+    public JwtTokenGenerator(IOptions<JwtSettings> keyOptions,
+        IOptions<RefreshTokenSettings> refreshTokenSettings,IGuidGenerator guidGenerator)
     {
         _keyInBytes = Encoding.UTF8.GetBytes(keyOptions.Value.SymmetricSecurityKey);
         _jwtSettings = keyOptions.Value;
+        _refreshTokenSettings = refreshTokenSettings.Value;
+        _guidGenerator = guidGenerator;
     }
 
     public string GenerateToken(Guid sub,string role,string email,string userName)
@@ -26,7 +34,7 @@ public class JwtTokenGenerator : ITokenGenerator
 
         var claims = new List<Claim>()
         {
-           new(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+           new(JwtRegisteredClaimNames.Jti,_guidGenerator.Generate().ToString()),
            new(JwtRegisteredClaimNames.Sub,sub.ToString()),
            new(JwtRegisteredClaimNames.Email,email),
            new(ClaimTypes.Role,role),
@@ -48,10 +56,20 @@ public class JwtTokenGenerator : ITokenGenerator
         return tokenHandler.WriteToken(token);
     }
 
-    public string GenerateRefreshToken()
+    public RefreshToken GenerateRefreshToken(Guid userId)
     {
-        return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+        return new RefreshToken
+        {
+            Id = _guidGenerator.Generate(),
+            Token = GenerateRefreshTokenValue(),
+            UserId = userId,
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(_refreshTokenSettings.ExpiresInDays)
+        };
+        ;
     }
+
+    public string GenerateRefreshTokenValue()
+        => Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
 }
 
  
