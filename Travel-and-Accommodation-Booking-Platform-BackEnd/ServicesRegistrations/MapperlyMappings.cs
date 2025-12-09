@@ -4,8 +4,9 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistration
 
 public static class MapperlyMappings
 {
-    public static void AddMapperlyMappings(this IServiceCollection services)
+    public static IServiceCollection AddMapperlyMappings(this IServiceCollection services)
     {
         services.AddSingleton<UserRegistrationRequestToRegisterUserCommandMapper>();
+        return services;
     }
 }
