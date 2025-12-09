@@ -1,10 +1,14 @@
 using System.Text;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Behaviors;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.RegisterUser;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Settings;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistrations;
 using AppDbContext = Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles.AppDbContext;
 
@@ -14,10 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetSection("connectionStrings")?["sqlserver"])
 );
- 
-builder.Services.Configure<JwtSettings>(
-        builder.Configuration.GetSection(JwtSettings.SectionName));
 
+builder.Services.AddAppOptions(builder.Configuration);
 builder.Services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
  
 
@@ -41,7 +43,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 builder.Services.AddOpenApi();
+builder.Services.AddRepositories();
 builder.Services.AddMapperlyMappings();
+builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserCommandValidator).Assembly);
+builder.Services.AddMediatR(cfg => {
+    
+    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly);
+    cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+});
+
 var app = builder.Build();
 
 app.UseAuthentication();
