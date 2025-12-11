@@ -7,7 +7,7 @@ using Travel_and_Accommodation_Booking_Platform_BackEnd.MapperlyMappings;
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 
 [ApiController]
-[Route("api/users")]
+[Route("api/v1/users")]
 public class RegisterController : ControllerBase
 {
     private readonly IMediator _mediator;
