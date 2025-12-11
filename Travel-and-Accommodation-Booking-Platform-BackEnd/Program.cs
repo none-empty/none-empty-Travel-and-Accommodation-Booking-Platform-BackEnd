@@ -8,6 +8,7 @@ using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Behaviors;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.RegisterUser;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Services;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Settings;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistrations;
 using AppDbContext = Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles.AppDbContext;
@@ -21,8 +22,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddAppOptions(builder.Configuration);
 builder.Services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
- 
-
+builder.Services.AddSingleton<IGuidGenerator, GuidGenerator>();
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+builder.Services.AddAdHocPersistance();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(x =>
@@ -41,7 +43,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddRepositories();
 builder.Services.AddMapperlyMappings();
@@ -53,7 +55,8 @@ builder.Services.AddMediatR(cfg => {
 });
 
 var app = builder.Build();
-
+app.MapControllers();
+ 
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -66,12 +69,6 @@ if (app.Environment.IsDevelopment())
  
 app.UseHttpsRedirection();
 
-app.MapGet("/tok",  (ITokenGenerator generator) =>
-{
-    return generator.GenerateToken(Guid.NewGuid(), "user", "fg@g.com", "dumb");
-});
-
-app.MapGet("/hello", () => "you are ok").RequireAuthorization().WithName("xx");
 app.Run();
 
  
