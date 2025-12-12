@@ -6,7 +6,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features
 
 public class UserLoginCommandValidator : AbstractValidator<UserLoginCommand>
 {
-    public UserLoginCommandValidator(IUserRepository userRepository,IPasswordHasher hasher)
+    public UserLoginCommandValidator(IUserRepository userRepository)
     {
         RuleFor(c => c.Email)
             .NotEmpty().WithMessage("Email address is required.")
