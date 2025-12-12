@@ -11,10 +11,7 @@ public static class AppOptions
          services.Configure<JwtSettings>(
              configuration.GetSection(JwtSettings.SectionName));
 
-       services.Configure<PasswordHashingSettings>(
-             configuration.GetSection(PasswordHashingSettings.SectionName));
-
-        services.Configure<RefreshTokenSettings>(
+         services.Configure<RefreshTokenSettings>(
              configuration.GetSection(RefreshTokenSettings.SectionName));
         return services;
     }
