@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Repositories;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
@@ -17,7 +18,7 @@ public class UserRepository : IUserRepository
  
     public async Task AddAsync(User entity)
     {
-        await _context.Set<User>().AddAsync(entity);
+        _context.Set<User>().Add(entity);
 
         await _context.SaveChangesAsync();
     }
@@ -39,15 +40,21 @@ public class UserRepository : IUserRepository
     
     public async Task<User?> GetByIdAsync(int id) => await _context.Set<User>().FindAsync(id);
 
-    public async Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
+    public Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
     {
-        return await _context.Set<User>()
+        return _context.Set<User>()
             .AnyAsync(u => u.Email == email, cancellationToken);
     }
 
-    public async Task<bool> ExistsByUserNameAsync(string userName, CancellationToken cancellationToken)
+    public Task<bool> ExistsByUserNameAsync(string userName, CancellationToken cancellationToken)
     {
-        return await _context.Set<User>()
+        return  _context.Set<User>()
             .AnyAsync(u => u.UserName == userName, cancellationToken);
+    }
+
+    public Task<User?> GetBy(Expression<Func<User,bool>> predicate)
+    {
+        return _context.Set<User>()
+            .FirstOrDefaultAsync(predicate);
     }
 }
