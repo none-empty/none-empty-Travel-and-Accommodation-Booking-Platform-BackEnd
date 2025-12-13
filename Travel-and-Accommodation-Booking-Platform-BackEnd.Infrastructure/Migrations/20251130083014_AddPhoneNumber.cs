@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Travel_and_Accommodation_Booking_Platform.DB.Migrations
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class AddPhoneNumber : Migration

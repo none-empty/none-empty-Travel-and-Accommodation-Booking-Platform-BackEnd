@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
-namespace Travel_and_Accommodation_Booking_Platform.DB.AppDbContextFiles;
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles;
 
 public partial class AppDbContext
 {
  protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles.AppDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
 
         //
