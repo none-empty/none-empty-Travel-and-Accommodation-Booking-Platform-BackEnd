@@ -1,10 +1,17 @@
 using System.Text;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Authentication.AccessTokens;
-using Travel_and_Accommodation_Booking_Platform.DB.AppDbContextFiles;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Behaviors;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.RegisterUser;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Services;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Settings;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistrations;
+using AppDbContext = Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles.AppDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -12,13 +19,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetSection("connectionStrings")?["sqlserver"])
 );
- 
-builder.Services.Configure<JwtSettings>(
-        builder.Configuration.GetSection(JwtSettings.SectionName));
 
+builder.Services.AddAppOptions(builder.Configuration);
 builder.Services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
-builder.Services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
-
+builder.Services.AddSingleton<IGuidGenerator, GuidGenerator>();
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+builder.Services.AddAdHocPersistance();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(x =>
@@ -37,11 +43,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+builder.Services.AddRepositories();
+builder.Services.AddMapperlyMappings();
+builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserCommandValidator).Assembly);
+builder.Services.AddMediatR(cfg => {
+    
+    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly);
+    cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+});
 
 var app = builder.Build();
-
+app.MapControllers();
+ 
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -54,12 +69,6 @@ if (app.Environment.IsDevelopment())
  
 app.UseHttpsRedirection();
 
-app.MapGet("/tok",  (ITokenGenerator generator) =>
-{
-    return generator.GenerateToken(Guid.NewGuid(), "user", "fg@g.com", "dumb");
-});
-
-app.MapGet("/hello", () => "you are ok").RequireAuthorization().WithName("xx");
 app.Run();
 
  
