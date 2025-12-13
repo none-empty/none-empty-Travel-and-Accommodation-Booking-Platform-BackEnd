@@ -8,6 +8,7 @@ public static class AdHocPersistance
     public static IServiceCollection AddAdHocPersistance(this IServiceCollection services)
     {
         services.AddScoped<IInsertUserRegistrationData, InsertUserRegistrationData>();
+        services.AddScoped<IGetFeaturedDealsData, GetFeaturedDealsData>();
         return services;
     }
 }
