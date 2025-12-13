@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
-        <RootNamespace>Travel_and_Accommodation_Booking_Platform.DB</RootNamespace>
+        <RootNamespace>Travel_and_Accommodation_Booking_Platform_BackEnd.Domain</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
