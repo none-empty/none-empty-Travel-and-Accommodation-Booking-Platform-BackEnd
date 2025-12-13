@@ -7,6 +7,7 @@ public static class MapperlyMappings
     public static IServiceCollection AddMapperlyMappings(this IServiceCollection services)
     {
         services.AddSingleton<UserRegistrationRequestToRegisterUserCommandMapper>();
+        services.AddSingleton<UserLoginRequestToUserLoginCommandMapper>();
         return services;
     }
 }
