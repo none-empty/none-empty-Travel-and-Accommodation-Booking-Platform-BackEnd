@@ -1,0 +1,74 @@
+using System.Text;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Behaviors;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.RegisterUser;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Services;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Settings;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistrations;
+using AppDbContext = Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles.AppDbContext;
+
+var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetSection("connectionStrings")?["sqlserver"])
+);
+
+builder.Services.AddAppOptions(builder.Configuration);
+builder.Services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
+builder.Services.AddSingleton<IGuidGenerator, GuidGenerator>();
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+builder.Services.AddAdHocPersistance();
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(x =>
+    {
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(config["JwtSettings:SymmetricSecurityKey"]!)),
+
+            ValidIssuer = config["JwtSettings:Issuer"],
+            ValidAudience = config["JwtSettings:Audience"],
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            ValidateIssuer = true,
+            ValidateAudience = true
+        };
+    });
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+builder.Services.AddRepositories();
+builder.Services.AddMapperlyMappings();
+builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserCommandValidator).Assembly);
+builder.Services.AddMediatR(cfg => {
+    
+    cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly);
+    cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+});
+
+var app = builder.Build();
+app.MapControllers();
+ 
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+ 
+app.UseHttpsRedirection();
+
+app.Run();
+
+ 
