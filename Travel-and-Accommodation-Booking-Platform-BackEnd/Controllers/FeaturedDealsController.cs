@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Ad_Hoc_Persistance;
 
@@ -5,6 +6,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 
 [ApiController]
 [Route("api/v1/hotels")]
+[Authorize]
 public class FeaturedDealsController : ControllerBase
 {
     private readonly IGetFeaturedDealsData _getFeaturedDealsData;
