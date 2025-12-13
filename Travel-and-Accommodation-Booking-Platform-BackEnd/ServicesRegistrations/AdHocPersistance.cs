@@ -10,6 +10,7 @@ public static class AdHocPersistance
         services.AddScoped<IInsertUserRegistrationData, InsertUserRegistrationData>();
         services.AddScoped<IGetFeaturedDealsData, GetFeaturedDealsData>();
         services.AddScoped<IGetRecentlyVisitedHotels, GetRecentlyVisitedHotels>();
+        services.AddScoped<IGetTrendingDestinations, GetTrendingDestinations>();
         return services;
     }
 }

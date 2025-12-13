@@ -1,0 +1,3 @@
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Cities;
+
+public record TrendingDestinationsResponse(string CityName,string? ThumbnailUrl);
