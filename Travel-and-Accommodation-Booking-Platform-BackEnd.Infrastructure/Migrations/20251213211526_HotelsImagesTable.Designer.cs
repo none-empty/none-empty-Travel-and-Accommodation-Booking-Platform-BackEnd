@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles;
 
@@ -11,9 +12,11 @@ using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbCont
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251213211526_HotelsImagesTable")]
+    partial class HotelsImagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,32 +197,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Migra
 
                     b.HasIndex("HotelId");
 
-                    b.ToTable("HotelsImages");
-                });
-
-            modelBuilder.Entity("Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels.HotelReview", b =>
-                {
-                    b.Property<Guid>("ReviewId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Review")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ReviewId");
-
-                    b.HasIndex("HotelId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("HotelsReviews");
+                    b.ToTable("HotelImage");
                 });
 
             modelBuilder.Entity("Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels.Reservation", b =>
@@ -406,7 +384,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Migra
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshToken");
                 });
 
             modelBuilder.Entity("Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels.Discount", b =>
@@ -459,25 +437,6 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Migra
                         .IsRequired();
 
                     b.Navigation("Hotel");
-                });
-
-            modelBuilder.Entity("Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels.HotelReview", b =>
-                {
-                    b.HasOne("Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels.Hotel", "Hotel")
-                        .WithMany()
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hotel");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels.Reservation", b =>

@@ -20,6 +20,7 @@ public partial class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<RoomReservation> RoomReservations { get; set; }
-    public DbSet<RefreshToken> RefreshTokens;
-
+    public DbSet<RefreshToken> RefreshTokens{ get; set; }
+    public DbSet<HotelImage> HotelsImages{ get; set; }
+    public DbSet<HotelReview> HotelsReviews{ get; set; }
 }
