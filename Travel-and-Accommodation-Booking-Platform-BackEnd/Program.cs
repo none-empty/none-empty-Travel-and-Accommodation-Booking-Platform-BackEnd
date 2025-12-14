@@ -26,6 +26,7 @@ builder.Services.AddSingleton<IGuidGenerator, GuidGenerator>();
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddAdHocPersistance();
 builder.Services.AddAuthorization();
+builder.Services.AddResponseCaching();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(x =>
     {
@@ -68,6 +69,7 @@ if (app.Environment.IsDevelopment())
 
  
 app.UseHttpsRedirection();
+app.UseResponseCaching();
 
 app.Run();
 

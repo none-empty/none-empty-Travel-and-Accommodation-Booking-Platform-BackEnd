@@ -8,6 +8,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 [ApiController]
 [Route("api/v1/hotels/{id}")]
 [Authorize]
+[ResponseCache(Duration = 20, Location = ResponseCacheLocation.Client)]
 public class HotelInfoPageController : ControllerBase
 {
     private readonly IMediator _mediator;

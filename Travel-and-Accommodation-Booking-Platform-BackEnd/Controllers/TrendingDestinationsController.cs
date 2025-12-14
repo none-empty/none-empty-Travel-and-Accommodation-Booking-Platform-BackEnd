@@ -8,6 +8,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 [ApiController]
 [Route("api/v1/Cities/trending-destination")]
 [Authorize]
+[ResponseCache(Duration = 120, Location = ResponseCacheLocation.Any)]
 public class TrendingDestinationsController : ControllerBase
 {
     private readonly IGetTrendingDestinations _getTrendingDestinations;

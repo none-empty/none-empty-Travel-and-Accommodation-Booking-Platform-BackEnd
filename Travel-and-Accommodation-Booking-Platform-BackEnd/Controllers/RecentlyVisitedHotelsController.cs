@@ -8,6 +8,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/v1/users/me/recently-visited-hotels")]
+[ResponseCache(Duration = 10, Location = ResponseCacheLocation.Client)]
 public class RecentlyVisitedHotelsController : ControllerBase
 {
     private readonly IGetRecentlyVisitedHotels _getRecentlyVisitedHotels;
