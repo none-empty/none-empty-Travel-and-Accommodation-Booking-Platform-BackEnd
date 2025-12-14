@@ -7,6 +7,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 [ApiController]
 [Route("api/v1/hotels")]
 [Authorize]
+[ResponseCache(Duration = 80, Location = ResponseCacheLocation.Any)]
 public class FeaturedDealsController : ControllerBase
 {
     private readonly IGetFeaturedDealsData _getFeaturedDealsData;
