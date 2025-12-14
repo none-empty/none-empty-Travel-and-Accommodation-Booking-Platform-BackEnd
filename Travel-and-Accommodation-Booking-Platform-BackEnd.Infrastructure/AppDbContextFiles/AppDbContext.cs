@@ -22,4 +22,5 @@ public partial class AppDbContext : DbContext
     public DbSet<RoomReservation> RoomReservations { get; set; }
     public DbSet<RefreshToken> RefreshTokens;
     public DbSet<HotelImage> HotelsImages;
+    public DbSet<HotelReview> HotelsReviews;
 }
