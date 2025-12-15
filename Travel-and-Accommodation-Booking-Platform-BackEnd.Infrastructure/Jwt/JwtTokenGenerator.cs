@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokensFiles;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Settings;
 
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
@@ -27,19 +28,23 @@ public class JwtTokenGenerator : ITokenGenerator
         _guidGenerator = guidGenerator;
     }
 
-    public string GenerateToken(Guid sub,string role,string email,string userName)
+    public string GenerateToken(Guid sub,List<SiteRole> roles,string email, string userName)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-         
 
+        var roleClaims = roles
+            .Select(role => new Claim(ClaimTypes.Role, role.ToString()))
+            .ToList();
+        
         var claims = new List<Claim>()
         {
            new(JwtRegisteredClaimNames.Jti,_guidGenerator.Generate().ToString()),
            new(JwtRegisteredClaimNames.Sub,sub.ToString()),
            new(JwtRegisteredClaimNames.Email,email),
-           new(ClaimTypes.Role,role),
            new(ClaimTypes.Name,userName)
         };
+        
+        claims.AddRange(roleClaims);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
