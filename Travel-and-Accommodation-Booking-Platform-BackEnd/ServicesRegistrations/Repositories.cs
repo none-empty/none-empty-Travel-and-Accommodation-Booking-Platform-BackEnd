@@ -10,6 +10,7 @@ public static class Repositories
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRepository<RefreshToken>, RefreshTokenRepository>();
+        services.AddScoped<IUserRoleRepository, UserRoleRepository>();
         return services;
     }
 }
