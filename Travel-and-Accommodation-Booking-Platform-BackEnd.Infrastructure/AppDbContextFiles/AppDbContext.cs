@@ -23,4 +23,5 @@ public partial class AppDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens{ get; set; }
     public DbSet<HotelImage> HotelsImages{ get; set; }
     public DbSet<HotelReview> HotelsReviews{ get; set; }
+    public DbSet<UserRole> UsersRoles { get; set; }
 }
