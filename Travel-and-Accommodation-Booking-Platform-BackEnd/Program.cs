@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Behaviors;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.RegisterUser;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Services;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Settings;
@@ -25,7 +26,12 @@ builder.Services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
 builder.Services.AddSingleton<IGuidGenerator, GuidGenerator>();
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddAdHocPersistance();
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+    options.AddPolicy("Admin Only", policy =>
+    {
+        policy.RequireRole(nameof(SiteRole.Admin));
+    })
+);
 builder.Services.AddResponseCaching();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(x =>
