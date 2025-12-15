@@ -13,13 +13,17 @@ public class UserLoginCommandHandler : IRequestHandler<UserLoginCommand, UserLog
     private readonly IUserRepository _userRepo;
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IPasswordHasher _hasher;
+    private readonly IUserRoleRepository _userRoleRepository;
+
     public UserLoginCommandHandler(IRepository<RefreshToken>refreshTokenRepo,
-        IUserRepository userRepo,ITokenGenerator tokenGenerator,IPasswordHasher hasher)
+        IUserRepository userRepo,ITokenGenerator tokenGenerator,IPasswordHasher hasher
+        ,IUserRoleRepository userRoleRepository)
     {
         _refreshTokenRepo = refreshTokenRepo;
         _userRepo = userRepo;
         _tokenGenerator = tokenGenerator;
         _hasher = hasher;
+        _userRoleRepository = userRoleRepository;
     }
 
     public async Task<UserLoginResponse> Handle(UserLoginCommand request, CancellationToken cancellationToken)
@@ -27,10 +31,11 @@ public class UserLoginCommandHandler : IRequestHandler<UserLoginCommand, UserLog
         var user = await _userRepo.GetBy(user => user.Email.Equals(request.Email));
 
         if (InvalidCredentials(user,request.Password)) throw new InvalidCredentialException("invalid credentials");
-        
+
+        var roles = await _userRoleRepository.GetUserRoles(user!.UserId);
         var accessToken = _tokenGenerator.GenerateToken(
             user.UserId,
-            "user", //TODO change
+            roles,
             user.Email,
             user.UserName
         );
