@@ -12,6 +12,7 @@ public static class Repositories
         services.AddScoped<IRepository<RefreshToken>, RefreshTokenRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+        services.AddScoped<IHotelRepository, HotelRepository>();
         return services;
     }
 }
