@@ -8,6 +8,7 @@ public static class MapperlyMappings
     {
         services.AddSingleton<UserRegistrationRequestToRegisterUserCommandMapper>();
         services.AddSingleton<UserLoginRequestToUserLoginCommandMapper>();
+        services.AddSingleton<LoginWithRefreshTokenRequestToLoginWithRefreshTokenCommandMapper>();
         return services;
     }
 }
