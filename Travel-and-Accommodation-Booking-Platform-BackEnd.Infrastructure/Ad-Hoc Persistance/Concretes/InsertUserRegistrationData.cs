@@ -13,10 +13,11 @@ public class InsertUserRegistrationData : IInsertUserRegistrationData
     {
         _context = context;
     }
-    public Task Execute(User user, RefreshToken token)
+    public Task Execute(User user, RefreshToken token,UserRole userRole)
     {
         _context.Set<User>().Add(user);
         _context.Set<RefreshToken>().Add(token);
+        _context.Set<UserRole>().Add(userRole);
        return _context.SaveChangesAsync();
     }
 }

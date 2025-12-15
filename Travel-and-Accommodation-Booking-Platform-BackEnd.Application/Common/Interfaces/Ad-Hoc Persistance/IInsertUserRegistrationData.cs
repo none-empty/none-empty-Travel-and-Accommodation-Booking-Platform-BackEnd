@@ -5,5 +5,5 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.I
 
 public interface IInsertUserRegistrationData
 {
-    Task Execute(User user,RefreshToken token);
+    Task Execute(User user,RefreshToken token,UserRole userRole);
 }
