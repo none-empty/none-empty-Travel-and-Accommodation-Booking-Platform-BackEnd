@@ -38,7 +38,7 @@ public class UserRepository : IUserRepository
     }
     
     
-    public async Task<User?> GetByIdAsync(int id) => await _context.Set<User>().FindAsync(id);
+    public async Task<User?> GetByIdAsync(Guid id) => await _context.Set<User>().FindAsync(id);
 
     public Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
     {
