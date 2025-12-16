@@ -15,6 +15,7 @@ public static class Repositories
         services.AddScoped<IUserRoleRepository, UserRoleRepository>();
         services.AddScoped<IHotelRepository, HotelRepository>();
         services.AddScoped<IRepository<City>, CityRepository>();
+        services.AddScoped<IRepository<Room>, RoomRepository>();
         return services;
     }
 }
