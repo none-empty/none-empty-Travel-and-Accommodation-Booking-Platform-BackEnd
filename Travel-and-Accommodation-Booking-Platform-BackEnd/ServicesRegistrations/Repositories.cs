@@ -1,4 +1,5 @@
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Repositories;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokensFiles;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Repositories;
 
@@ -13,6 +14,7 @@ public static class Repositories
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IUserRoleRepository, UserRoleRepository>();
         services.AddScoped<IHotelRepository, HotelRepository>();
+        services.AddScoped<IRepository<City>, CityRepository>();
         return services;
     }
 }

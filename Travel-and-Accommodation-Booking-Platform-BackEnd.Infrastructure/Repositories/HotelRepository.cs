@@ -39,6 +39,13 @@ public class HotelRepository : IHotelRepository
             .FirstOrDefaultAsync(hotel => hotel.HotelId.Equals(id));
     }
 
+    public Task DeleteByIdAsync(Guid id)
+    {
+       return _context.Set<Hotel>()
+            .Where(hotel => hotel.HotelId.Equals(id))
+            .ExecuteDeleteAsync();
+    }
+
     public Task<List<Discount>> GetHotelDiscounts(Guid id)
     {
         return _context.Discounts

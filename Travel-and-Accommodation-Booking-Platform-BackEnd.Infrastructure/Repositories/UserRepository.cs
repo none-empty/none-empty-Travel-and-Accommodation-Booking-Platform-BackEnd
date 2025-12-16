@@ -39,6 +39,13 @@ public class UserRepository : IUserRepository
     
     
     public async Task<User?> GetByIdAsync(Guid id) => await _context.Set<User>().FindAsync(id);
+    
+    public Task DeleteByIdAsync(Guid id)
+    {
+        return _context.Set<User>()
+            .Where(user => user.UserId.Equals(id))
+            .ExecuteDeleteAsync();
+    }
 
     public Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
     {
