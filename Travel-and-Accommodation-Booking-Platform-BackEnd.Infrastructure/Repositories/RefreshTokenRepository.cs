@@ -39,7 +39,13 @@ public class RefreshTokenRepository : IRefreshTokenRepository
     
     
     public async Task<RefreshToken?> GetByIdAsync(Guid id) => await _context.Set<RefreshToken>().FindAsync(id);
-    
+    public Task DeleteByIdAsync(Guid id)
+    {
+        return _context.Set<RefreshToken>()
+            .Where(token => token.Id.Equals(id))
+            .ExecuteDeleteAsync<RefreshToken>();
+    }
+
     public Task<RefreshToken?> ByTokenWithUser(string token)
     {
         return _context.Set<RefreshToken>()
