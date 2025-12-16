@@ -11,12 +11,12 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 [ApiController]
 [Route("api/v1/Cities")]
 [Authorize(Policy = "Admin Only")]
-public class AdminCityEndpoints : ControllerBase
+public class AdminCityEndpointsController : ControllerBase
 {
     private readonly IRepository<City> _cityRpository;
     private readonly IGuidGenerator _guidGenerator;
 
-    public AdminCityEndpoints(IRepository<City> cityRepository,IGuidGenerator guidGenerator)
+    public AdminCityEndpointsController(IRepository<City> cityRepository,IGuidGenerator guidGenerator)
     {
         _cityRpository = cityRepository;
         _guidGenerator = guidGenerator;
