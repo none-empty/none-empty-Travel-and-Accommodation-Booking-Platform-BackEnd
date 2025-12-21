@@ -53,6 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddRepositories();
+builder.Services.AddSearchPredicatesRepos();
 builder.Services.AddMapperlyMappings();
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserCommandValidator).Assembly);
 builder.Services.AddMediatR(cfg => {
