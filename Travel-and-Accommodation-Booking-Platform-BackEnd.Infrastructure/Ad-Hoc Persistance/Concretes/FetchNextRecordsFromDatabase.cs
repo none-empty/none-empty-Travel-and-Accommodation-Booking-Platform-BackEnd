@@ -21,7 +21,7 @@ where T5Entity : class
         Expression<Func<T5Entity, Guid>>getPrimaryKey, int limit,bool down)
     {
         var baseQuery = _context.Set<T5Entity>();
-        var query1 = baseQuery.Where(_ => true);
+        var query1 = baseQuery.Where(_ => false);
         foreach (var predicate in searchPredicates)
         {
             query1 = query1.Union(baseQuery.Where(predicate));
