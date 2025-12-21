@@ -21,8 +21,9 @@ public class FetchNextRecordsQueryHandler<T3Entity> : IRequestHandler<FetchNextR
     {
         var searchPredicates = _searchPredicateRepo.GetSearchPredicates(request.SearchTopic,request.PrevElementId);
         var getPrimaryKey = _searchPredicateRepo.GetPrimaryKeyDelegate();
-
-        return _fetchNextRecordsFromDatabase.Execute(searchPredicates, getPrimaryKey,
+        var getSortBy = _searchPredicateRepo.GetSortByDelegate(request.SortBy);
+        
+        return _fetchNextRecordsFromDatabase.Execute(searchPredicates, getSortBy,getPrimaryKey,
             request.Limit, request.Down);
     }
 }
