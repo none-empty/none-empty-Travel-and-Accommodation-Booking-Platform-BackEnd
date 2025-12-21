@@ -17,19 +17,22 @@ where T5Entity : class
     }
 
     public async Task<FetchNextRecordsQueryResponse<T5Entity>> Execute(
-        List<Expression<Func<T5Entity,bool>>> searchPredicates, 
+        List<Expression<Func<T5Entity,bool>>> searchPredicates,Expression<Func<T5Entity,string>>?getSortBy, 
         Expression<Func<T5Entity, Guid>>getPrimaryKey, int limit,bool down)
     {
         var baseQuery = _context.Set<T5Entity>();
-        var query = baseQuery.Where(_ => true);
+        var query1 = baseQuery.Where(_ => true);
         foreach (var predicate in searchPredicates)
         {
-            query = query.Union(baseQuery.Where(predicate));
+            query1 = query1.Union(baseQuery.Where(predicate));
         }
 
-        query = down ? query.OrderBy(getPrimaryKey) : query.OrderByDescending(getPrimaryKey);
-
-        var result = await query.Take(limit + 1).ToListAsync();
+        var query2 = down ? query1.OrderBy(getPrimaryKey): query1.OrderByDescending(getPrimaryKey);
+        
+        if(getSortBy is not null)
+            query2 = down ? query2.ThenBy(getSortBy) : query2.ThenByDescending(getSortBy);
+            
+        var result = await query2.Take(limit + 1).ToListAsync();
         
         bool hasMore = result.Count > limit;
         var primaryKeyDelegate = getPrimaryKey.Compile();

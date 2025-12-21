@@ -6,6 +6,6 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.I
 public interface IFetchNextRecordsFromDatabase <T4Entity> where T4Entity : class
 {
     Task<FetchNextRecordsQueryResponse<T4Entity>> Execute(
-        List<Expression<Func<T4Entity,bool>>>searchPredicates,
+        List<Expression<Func<T4Entity,bool>>>searchPredicates,Expression<Func<T4Entity,string>>?getSortBy,
         Expression<Func<T4Entity, Guid>> getPrimaryKey,int limit,bool down);
 }
