@@ -1,6 +1,6 @@
 using MediatR;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Ad_Hoc_Persistance;
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.SearchPredicatesRepos;
 
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Search;
 
@@ -19,7 +19,8 @@ public class FetchNextRecordsQueryHandler<T3Entity> : IRequestHandler<FetchNextR
 
     public Task<FetchNextRecordsQueryResponse<T3Entity>> Handle(FetchNextRecordsQuery<T3Entity> request, CancellationToken cancellationToken)
     {
-        var searchPredicates = _searchPredicateRepo.GetSearchPredicates(request.SearchTopic,request.PrevElementId);
+        var searchPredicates = _searchPredicateRepo.GetSearchPredicates(request.SearchTopic,
+            request.PrevElementId,request.Down);
         var getPrimaryKey = _searchPredicateRepo.GetPrimaryKeyDelegate();
         var getSortBy = _searchPredicateRepo.GetSortByDelegate(request.SortBy);
         
