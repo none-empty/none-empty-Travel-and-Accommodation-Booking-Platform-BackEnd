@@ -9,6 +9,7 @@ public static class SearchPredicatesRepos
     public static IServiceCollection AddSearchPredicatesRepos(this IServiceCollection services)
     {
         services.AddSingleton<ISearchPredicateRepo<Hotel>, HotelSearchPredicatesRepo>();
+        services.AddSingleton<ISearchPredicateRepo<Room>, RoomSearchPredicatesRepo>();
         return services;
     }
 }
