@@ -1,9 +1,12 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Behaviors;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.RegisterUser;
@@ -34,9 +37,9 @@ builder.Services.AddAuthorization(options =>
 );
 builder.Services.AddResponseCaching();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(x =>
+    .AddJwtBearer(options =>
     {
-        x.TokenValidationParameters = new TokenValidationParameters
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(config["JwtSettings:SymmetricSecurityKey"]!)),
@@ -48,6 +51,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = true,
             ValidateAudience = true
         };
+        
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var blacklist =
+                    context.HttpContext.RequestServices
+                        .GetRequiredService<ITokenBlacklistService>();
+
+                var jti = context.Principal?
+                    .FindFirstValue(JwtRegisteredClaimNames.Jti);
+
+                if (jti != null &&
+                    await blacklist.IsBlacklistedAsync(jti))
+                {
+                    context.Fail("Token is invalid at this point");
+                }
+            }
+        };
+        
     });
 
 builder.Services.AddControllers();
@@ -61,6 +84,12 @@ builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly);
     cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 });
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+    ConnectionMultiplexer.Connect(config["Redis:connection"]!)
+);
+
+builder.Services.AddScoped<ITokenBlacklistService, RedisTokenBlacklistService>();
 
 var app = builder.Build();
 app.MapControllers();
