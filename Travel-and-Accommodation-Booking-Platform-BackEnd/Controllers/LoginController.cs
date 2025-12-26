@@ -21,6 +21,7 @@ public class LoginController : ControllerBase
     [HttpPost] 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Login([FromBody]UserLoginRequest request)
     {
         var command = _mapper.MapToCommand(request);

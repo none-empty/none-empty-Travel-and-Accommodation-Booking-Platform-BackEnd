@@ -22,6 +22,7 @@ public class RegisterController : ControllerBase
     [HttpPost] 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Register([FromBody]UserRegistrationRequest inputData)
     {
         var command = _mapper.MapToCommand(inputData);

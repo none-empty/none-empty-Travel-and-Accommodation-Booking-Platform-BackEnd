@@ -24,6 +24,7 @@ public class LoginWithRefreshTokenController : ControllerBase
     [HttpPost] 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Login([FromBody]LoginWithRefreshTokenRequest request)
     {
 
