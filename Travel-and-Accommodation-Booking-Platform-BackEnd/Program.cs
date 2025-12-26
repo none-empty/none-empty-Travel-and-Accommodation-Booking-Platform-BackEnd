@@ -13,11 +13,21 @@ using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Use
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Jwt;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Services;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Middlewares;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.ServicesRegistrations;
 using AppDbContext = Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles.AppDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+builder.Services.AddProblemDetails(configure =>
+{
+    configure.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+    }; 
+    
+});
+builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetSection("connectionStrings")?["sqlserver"])
@@ -98,7 +108,9 @@ builder.Services.AddFluentEmail(
 builder.Services.AddScoped<IEmailServiceManager, EmailServiceManager>();
 var app = builder.Build();
 app.MapControllers();
- 
+
+app.UseExceptionHandler();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
