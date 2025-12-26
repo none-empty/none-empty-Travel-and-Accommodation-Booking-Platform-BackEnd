@@ -1,3 +1,5 @@
+using System.Security.Authentication;
+using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +12,12 @@ public class ExceptionHandler(IProblemDetailsService problemDetailsService) : IE
     {
         httpContext.Response.StatusCode = exception switch
         {
-          _ => StatusCodes.Status500InternalServerError
+            ValidationException or 
+                InvalidCredentialException or 
+                ApplicationException or 
+                InvalidOperationException => StatusCodes.Status400BadRequest,
+    
+            _ => StatusCodes.Status500InternalServerError
         };
 
         return await problemDetailsService.TryWriteAsync( new ProblemDetailsContext
