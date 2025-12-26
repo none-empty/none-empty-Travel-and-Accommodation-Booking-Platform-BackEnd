@@ -91,6 +91,11 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(
 
 builder.Services.AddScoped<ITokenBlacklistService, RedisTokenBlacklistService>();
 
+builder.Services.AddFluentEmail(
+    config["Email:SenderEmail"], config["Email:Sender"])
+    .AddSmtpSender(config["Email:Host"],config.GetValue<int>("Email:Port"));
+
+builder.Services.AddScoped<IEmailServiceManager, EmailServiceManager>();
 var app = builder.Build();
 app.MapControllers();
  
