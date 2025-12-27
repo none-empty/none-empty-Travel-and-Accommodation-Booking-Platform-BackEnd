@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  travel-and-accommodation-booking-platform-backend:
+    build:
+      context: "/home/omar/RiderProjects/Travel-and-Accommodation-Booking-Platform-BackEnd"
+      dockerfile: "Travel-and-Accommodation-Booking-Platform-BackEnd/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/Travel-and-Accommodation-Booking-Platform-BackEnd.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "travel-and-accommodation-booking-platform-backend:dev"
+    ports: []
+    volumes:
+    - "/home/omar/RiderProjects/Travel-and-Accommodation-Booking-Platform-BackEnd/Travel-and-Accommodation-Booking-Platform-BackEnd:/app:rw"
+    - "/home/omar/RiderProjects/Travel-and-Accommodation-Booking-Platform-BackEnd:/src:rw"
+    - "/home/omar/.nuget/packages:/home/app/.nuget/packages"
+    working_dir: "/app"

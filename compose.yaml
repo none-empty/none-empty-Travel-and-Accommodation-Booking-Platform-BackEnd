@@ -1,0 +1,30 @@
+﻿services:
+  travel-and-accommodation-booking-platform-backend:
+    image: travel-and-accommodation-booking-platform-backend
+    build:
+      context: .
+      dockerfile: Travel-and-Accommodation-Booking-Platform-BackEnd/Dockerfile
+    ports:
+      - "5151:8080"
+    
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=host.docker.internal;Database=TravelAndAccommodationBooking;User Id=sa;Password=WeNeedABetterPassword!!!1;TrustServerCertificate=True
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - my-redis
+      - papercut-smtp
+    
+    
+  my-redis:
+    image: redis:alpine
+    container_name: my-redis
+    ports:
+      - "6379:6379"
+
+  papercut-smtp:
+    image: changemakerstudiosus/papercut-smtp
+    container_name: papercut-smtp
+    ports:
+      - "2525:2525"      
+      - "37408:8080" # Web UI Port
