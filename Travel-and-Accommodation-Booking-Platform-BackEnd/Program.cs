@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using FluentValidation;
@@ -6,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Behaviors;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
@@ -84,10 +86,54 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddControllers();
+
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(setup =>
+{
+    setup.SwaggerDoc("v1", new OpenApiInfo { Title = "Travel_and_Accommodation_Booking_Platform_BackEnd", Version = "v1" });
+
+    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+    if (File.Exists(xmlCommentsFullPath))
+    {
+        setup.IncludeXmlComments(xmlCommentsFullPath);
+    }
+
+    setup.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+
+    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+            
+    
+});
+
 builder.Services.AddRepositories();
 builder.Services.AddSearchPredicatesRepos();
 builder.Services.AddMapperlyMappings();
+
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterUserCommandValidator).Assembly);
 builder.Services.AddMediatR(cfg => {
     
@@ -118,6 +164,10 @@ app.UseAuthorization();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json",
+        "Travel_and_Accommodation_Booking_Platform_BackEnd V1"));
+   
 }
 
  
