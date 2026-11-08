@@ -1,0 +1,3 @@
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.DTOs;
+
+public record LoginWithRefreshTokenRequest(Guid UserId,string OldRefreshToken);

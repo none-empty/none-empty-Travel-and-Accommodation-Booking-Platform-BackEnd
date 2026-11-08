@@ -70,3 +70,4 @@ nunit-*.xml
 
 # Local test results
 TestResults/
+*.json

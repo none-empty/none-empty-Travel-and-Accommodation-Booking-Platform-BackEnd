@@ -1,0 +1,11 @@
+using Riok.Mapperly.Abstractions;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.LoginUsingRefreshToken;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.DTOs;
+
+namespace Travel_and_Accommodation_Booking_Platform_BackEnd.MapperlyMappings;
+
+[Mapper]
+public partial class LoginWithRefreshTokenRequestToLoginWithRefreshTokenCommandMapper
+{
+    public partial LoginWithRefreshTokenCommand MapToCommand(LoginWithRefreshTokenRequest entity);
+}
