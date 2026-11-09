@@ -60,6 +60,7 @@ TestResult.xml
 nunit-*.xml
 
 # Rider/ReSharper Generated Folders/Files
+.idea/**/.name
 # The .vs folder is created by Visual Studio, but can also be used by Rider
 .vs/
 
@@ -71,3 +72,6 @@ nunit-*.xml
 # Local test results
 TestResults/
 *.json
+
+# Track only the empty configuration template; populated JSON files stay ignored.
+!/Travel-and-Accommodation-Booking-Platform-BackEnd/appsettings.json

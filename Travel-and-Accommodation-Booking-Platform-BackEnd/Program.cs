@@ -5,6 +5,7 @@ using System.Text;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -21,6 +22,17 @@ using AppDbContext = Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastru
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+var sqlConnectionString = config.GetConnectionString("sqlserver");
+var sqlServer = config["Database:Server"];
+if (!string.IsNullOrWhiteSpace(sqlServer))
+{
+    var connection = new SqlConnectionStringBuilder(sqlConnectionString)
+    {
+        DataSource = sqlServer
+    };
+    sqlConnectionString = connection.ConnectionString;
+}
+
 builder.Services.AddProblemDetails(configure =>
 {
     configure.CustomizeProblemDetails = context =>
@@ -31,8 +43,7 @@ builder.Services.AddProblemDetails(configure =>
 });
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetSection("connectionStrings")?["sqlserver"])
+    options.UseSqlServer(sqlConnectionString, sql => sql.EnableRetryOnFailure())
 );
 
 builder.Services.AddAppOptions(builder.Configuration);
@@ -153,6 +164,14 @@ builder.Services.AddFluentEmail(
 
 builder.Services.AddScoped<IEmailServiceManager, EmailServiceManager>();
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment() && config.GetValue<bool>("Database:ApplyMigrationsOnStartup"))
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    var database = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await database.Database.MigrateAsync();
+}
+
 app.MapControllers();
 
 app.UseExceptionHandler();
@@ -175,5 +194,3 @@ app.UseHttpsRedirection();
 app.UseResponseCaching();
 
 app.Run();
-
- 

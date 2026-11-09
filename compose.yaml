@@ -5,26 +5,91 @@
       context: .
       dockerfile: Travel-and-Accommodation-Booking-Platform-BackEnd/Dockerfile
     ports:
-      - "5151:8080"
+      - "127.0.0.1:5151:8080"
+    volumes:
+      - type: bind
+        source: ./Travel-and-Accommodation-Booking-Platform-BackEnd/appsettings.Development.json
+        target: /app/appsettings.json
+        read_only: true
+        bind:
+          create_host_path: false
     
     environment:
-      - ConnectionStrings__DefaultConnection=Server=host.docker.internal;Database=TravelAndAccommodationBooking;User Id=sa;Password=WeNeedABetterPassword!!!1;TrustServerCertificate=True
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      # Keep the database name and credentials in the ignored settings file.
+      Database__Server: host.docker.internal,1433
+      Database__ApplyMigrationsOnStartup: "true"
+      Redis__connection: my-redis:6379,abortConnect=false
+      Email__Host: papercut-smtp
+      Email__Port: "2525"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
-      - my-redis
-      - papercut-smtp
-    
-    
+      my-redis:
+        condition: service_healthy
+      papercut-smtp:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - /bin/bash
+        - -ec
+        - |
+          exec 3<>/dev/tcp/127.0.0.1/8080
+          printf 'GET /swagger/v1/swagger.json HTTP/1.0\r\nHost: localhost\r\n\r\n' >&3
+          IFS= read -r status <&3
+          [[ "$$status" == *" 200 "* ]]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
+    restart: unless-stopped
+
   my-redis:
-    image: redis:alpine
+    image: redis:7.4.12-alpine@sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b
     container_name: my-redis
+    command: ["redis-server", "--appendonly", "yes"]
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
 
   papercut-smtp:
-    image: changemakerstudiosus/papercut-smtp
+    # Papercut 8.0.2, pinned to the verified multi-platform image digest.
+    image: changemakerstudiosus/papercut-smtp@sha256:fb5a93bd5a0ae11f3a7f1a921fa270e6e7c319e569f057f0161954d55f0ef486
     container_name: papercut-smtp
+    environment:
+      SmtpServer__Port: "2525"
+      SmtpServer__MessagePath: /app/Incoming
+      Urls: http://0.0.0.0:8080
     ports:
-      - "2525:2525"      
-      - "37408:8080" # Web UI Port
+      - "127.0.0.1:2525:2525"
+      - "127.0.0.1:37408:8080" # Web UI Port
+    volumes:
+      - papercut-messages:/app/Incoming
+    healthcheck:
+      test:
+        - CMD
+        - /bin/bash
+        - -ec
+        - |
+          exec 3<>/dev/tcp/127.0.0.1/2525
+          IFS= read -r greeting <&3
+          [[ "$$greeting" == 220* ]]
+          exec 4<>/dev/tcp/127.0.0.1/8080
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  papercut-messages:

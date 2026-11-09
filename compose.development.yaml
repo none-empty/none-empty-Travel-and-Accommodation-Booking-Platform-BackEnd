@@ -1,0 +1,89 @@
+name: travel-booking-development
+
+# Self-contained development stack: API and all backing services.
+services:
+  travel-and-accommodation-booking-platform-backend:
+    build:
+      context: .
+      dockerfile: Travel-and-Accommodation-Booking-Platform-BackEnd/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      # Public development-only defaults; private local settings stay in JSON.
+      Logging__LogLevel__Default: Information
+      Logging__LogLevel__Microsoft.AspNetCore: Warning
+      AllowedHosts: "*"
+      ConnectionStrings__sqlserver: "Server=sqlserver,1433;Database=TravelAndAccommodationBooking;User Id=sa;Password=LocalContainerOnly-TravelBooking-2026!;Encrypt=True;TrustServerCertificate=True"
+      Redis__connection: "redis:6379,abortConnect=false"
+      JwtSettings__SymmetricSecurityKey: "PublicDevelopmentDefault-TravelBooking-JwtSigningKey-DoNotUseInProduction"
+      JwtSettings__Issuer: TravelAndAccommodationBooking.Api
+      JwtSettings__Audience: TravelAndAccommodationBooking.Client
+      JwtSettings__ExpiresInMinutes: "15"
+      RefreshTokenSettings__ExpiresInDays: "7"
+      Email__SenderEmail: noreply@travelbooking.local
+      Email__Sender: Travel and Accommodation Booking
+      Email__Host: papercut-smtp
+      Email__Port: "2525"
+      Database__ApplyMigrationsOnStartup: "true"
+    ports:
+      - "127.0.0.1:5151:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      papercut-smtp:
+        condition: service_started
+    restart: unless-stopped
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    pull_policy: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      # Throwaway credentials for the SQL Server container above.
+      MSSQL_SA_PASSWORD: "LocalContainerOnly-TravelBooking-2026!"
+    ports:
+      - "127.0.0.1:1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -b -Q "SELECT 1" -o /dev/null'
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    pull_policy: always
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  papercut-smtp:
+    image: changemakerstudiosus/papercut-smtp:latest
+    pull_policy: always
+    ports:
+      - "127.0.0.1:2525:2525"
+      - "127.0.0.1:37408:8080"
+    volumes:
+      - papercut-messages:/app/Incoming
+    restart: unless-stopped
+
+volumes:
+  sqlserver-data:
+  redis-data:
+  papercut-messages:
