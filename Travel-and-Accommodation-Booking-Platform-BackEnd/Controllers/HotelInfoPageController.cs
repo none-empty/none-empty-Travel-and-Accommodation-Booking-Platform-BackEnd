@@ -24,8 +24,8 @@ public class HotelInfoPageController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetDetailedHotelInfo(Guid id)
     {
-        await _mediator.Send(new GetHotelDetailedInfoQuery(id));   
+        var result = await _mediator.Send(new GetHotelDetailedInfoQuery(id));   
 
-        return StatusCode(StatusCodes.Status200OK);
+        return StatusCode(StatusCodes.Status200OK,result);
     }
 }
