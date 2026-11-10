@@ -19,6 +19,8 @@ public class UserRegistrationRequest
     [StringLength(150)]
     public string Email { get; init; } = null!;
 
-    [Phone] [StringLength(20)] 
+    [Required]
+    [StringLength(15, MinimumLength = 7)]
+    [RegularExpression(@"[0-9]{7,15}", ErrorMessage = "Phone number must contain 7 to 15 digits only.")]
     public string PhoneNumber { get; init; } = null!;
 }

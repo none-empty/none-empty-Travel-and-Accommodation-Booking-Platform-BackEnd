@@ -27,8 +27,10 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
         
          
         RuleFor(c => c.PhoneNumber)
-            .NotEmpty().WithMessage("PhoneNumberIsRequired")
-            .Matches(@"^\+?[0-9\s-]{7,20}$").WithMessage("Phone number format is invalid.");
+            .Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage("Phone number is required.")
+            .Matches(@"\A[0-9]{7,15}\z")
+            .WithMessage("Phone number must contain 7 to 15 digits only.");
 
 
  
