@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using MediatR;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
 
@@ -15,6 +16,7 @@ public record HotelPrimaryInfo(
     string CityName,
     int StarRating,
     string? ThumbnailUrl,
+    [property: Column(TypeName = "nvarchar(200)")]
     HotelCategory Category,
     decimal PricePerNight,
     string? Description,
