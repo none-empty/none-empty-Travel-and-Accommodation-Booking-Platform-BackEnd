@@ -12,13 +12,16 @@ public class LoginWithRefreshTokenCommandHandler : IRequestHandler<LoginWithRefr
     private readonly IRefreshTokenRepository _refreshTokenRepository;
     private readonly ITokenGenerator _tokenGenerator;
     private readonly IUserRoleRepository _userRoleRepository;
+    private readonly IRefreshTokenHasher _refreshTokenHasher;
 
     public LoginWithRefreshTokenCommandHandler(IRefreshTokenRepository refreshTokenRepository,
-        ITokenGenerator tokenGenerator,IUserRoleRepository userRoleRepository)
+        ITokenGenerator tokenGenerator,IUserRoleRepository userRoleRepository,
+        IRefreshTokenHasher refreshTokenHasher)
     {
         _refreshTokenRepository = refreshTokenRepository;
         _tokenGenerator = tokenGenerator;
         _userRoleRepository = userRoleRepository;
+        _refreshTokenHasher = refreshTokenHasher;
     }
 
     public async Task<LoginWithRefreshTokenResponse> Handle(LoginWithRefreshTokenCommand request, CancellationToken cancellationToken)
@@ -42,12 +45,13 @@ public class LoginWithRefreshTokenCommandHandler : IRequestHandler<LoginWithRefr
             user.UserName
             );
 
-        refreshToken.Token = _tokenGenerator.GenerateRefreshTokenValue();
+        var rawRefreshToken = _tokenGenerator.GenerateRefreshTokenValue();
+        refreshToken.TokenHash = _refreshTokenHasher.Hash(rawRefreshToken);
         refreshToken.ExpiresOnUtc = DateTime.UtcNow.AddDays(7);
 
         await _refreshTokenRepository.UpdateAsync(refreshToken);
 
-        return new LoginWithRefreshTokenResponse(accessToken, refreshToken.Token);
+        return new LoginWithRefreshTokenResponse(accessToken, rawRefreshToken);
     }
 
     private bool TokenIsNotForThatUser(Guid userId, Guid requestUserId)

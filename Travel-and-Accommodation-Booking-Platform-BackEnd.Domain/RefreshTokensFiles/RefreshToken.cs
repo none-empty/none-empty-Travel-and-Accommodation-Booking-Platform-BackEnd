@@ -5,7 +5,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokens
 public class RefreshToken
 {
     public Guid Id { get; set; }
-    public string Token { get; set; } = string.Empty;
+    public string TokenHash { get; set; } = string.Empty;
     public Guid UserId { get; set; }
     public DateTime ExpiresOnUtc { get; set; }
     

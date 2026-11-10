@@ -45,11 +45,11 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
             newUser.UserName
             );
 
-        var refreshToken = _tokenGenerator.GenerateRefreshToken(newUser.UserId);
+        var (refreshToken, rawRefreshToken) = _tokenGenerator.GenerateRefreshToken(newUser.UserId);
 
         await _insertUserRegistrationData.Execute(newUser, refreshToken,
             new UserRole{UserId = newUser.UserId,Role = SiteRole.User});
         
-        return new RegisterUserResponse(newUser.UserId,newUser.Email,accessToken,refreshToken.Token);
+        return new RegisterUserResponse(newUser.UserId,newUser.Email,accessToken,rawRefreshToken);
     }
 }

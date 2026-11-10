@@ -50,6 +50,7 @@ builder.Services.AddAppOptions(builder.Configuration);
 builder.Services.AddSingleton<ITokenGenerator, JwtTokenGenerator>();
 builder.Services.AddSingleton<IGuidGenerator, GuidGenerator>();
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+builder.Services.AddSingleton<IRefreshTokenHasher, RefreshTokenHasher>();
 builder.Services.AddSingleton<IDateGetter, DateGetter>();
 builder.Services.AddAdHocPersistance();
 builder.Services.AddAuthorization(options =>

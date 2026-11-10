@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Repositories;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.RefreshTokensFiles;
@@ -9,10 +10,12 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Repos
 public class RefreshTokenRepository : IRefreshTokenRepository
 {
     private readonly AppDbContext _context;
+    private readonly IRefreshTokenHasher _refreshTokenHasher;
 
-    public RefreshTokenRepository(AppDbContext context)
+    public RefreshTokenRepository(AppDbContext context, IRefreshTokenHasher refreshTokenHasher)
     {
         _context = context;
+        _refreshTokenHasher = refreshTokenHasher;
     }
     
  
@@ -48,8 +51,10 @@ public class RefreshTokenRepository : IRefreshTokenRepository
 
     public Task<RefreshToken?> ByTokenWithUser(string token)
     {
+        var tokenHash = _refreshTokenHasher.Hash(token);
+
         return _context.Set<RefreshToken>()
             .Include(r => r.User)
-            .FirstOrDefaultAsync(r => r.Token.Equals(token));
+            .FirstOrDefaultAsync(r => r.TokenHash.Equals(tokenHash));
     }
 }

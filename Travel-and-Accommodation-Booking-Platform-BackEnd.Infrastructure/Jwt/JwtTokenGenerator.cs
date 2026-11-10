@@ -18,14 +18,17 @@ public class JwtTokenGenerator : ITokenGenerator
     private readonly JwtSettings _jwtSettings;
     private readonly RefreshTokenSettings _refreshTokenSettings;
     private readonly IGuidGenerator _guidGenerator;
+    private readonly IRefreshTokenHasher _refreshTokenHasher;
     
     public JwtTokenGenerator(IOptions<JwtSettings> keyOptions,
-        IOptions<RefreshTokenSettings> refreshTokenSettings,IGuidGenerator guidGenerator)
+        IOptions<RefreshTokenSettings> refreshTokenSettings,IGuidGenerator guidGenerator,
+        IRefreshTokenHasher refreshTokenHasher)
     {
         _keyInBytes = Encoding.UTF8.GetBytes(keyOptions.Value.SymmetricSecurityKey);
         _jwtSettings = keyOptions.Value;
         _refreshTokenSettings = refreshTokenSettings.Value;
         _guidGenerator = guidGenerator;
+        _refreshTokenHasher = refreshTokenHasher;
     }
 
     public string GenerateToken(Guid sub,List<SiteRole> roles,string email, string userName)
@@ -61,20 +64,20 @@ public class JwtTokenGenerator : ITokenGenerator
         return tokenHandler.WriteToken(token);
     }
 
-    public RefreshToken GenerateRefreshToken(Guid userId)
+    public (RefreshToken Token, string RawToken) GenerateRefreshToken(Guid userId)
     {
-        return new RefreshToken
+        var rawToken = GenerateRefreshTokenValue();
+        var refreshToken = new RefreshToken
         {
             Id = _guidGenerator.Generate(),
-            Token = GenerateRefreshTokenValue(),
+            TokenHash = _refreshTokenHasher.Hash(rawToken),
             UserId = userId,
             ExpiresOnUtc = DateTime.UtcNow.AddDays(_refreshTokenSettings.ExpiresInDays)
         };
-        ;
+
+        return (refreshToken, rawToken);
     }
 
     public string GenerateRefreshTokenValue()
         => Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
 }
-
- 

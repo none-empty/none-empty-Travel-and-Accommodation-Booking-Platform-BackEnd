@@ -40,9 +40,9 @@ public class UserLoginCommandHandler : IRequestHandler<UserLoginCommand, UserLog
             user.UserName
         );
 
-        var refreshToken = _tokenGenerator.GenerateRefreshToken(user.UserId);
+        var (refreshToken, rawRefreshToken) = _tokenGenerator.GenerateRefreshToken(user.UserId);
         await _refreshTokenRepo.AddAsync(refreshToken);
-        return new UserLoginResponse(accessToken, refreshToken.Token);
+        return new UserLoginResponse(accessToken, rawRefreshToken);
     }
 
     private bool InvalidCredentials(User? user,string password)

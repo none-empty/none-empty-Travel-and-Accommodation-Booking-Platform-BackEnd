@@ -7,5 +7,5 @@ public interface ITokenGenerator
 {
     public string GenerateToken(Guid sub,List<SiteRole>roles ,string email, string userName);
     public string GenerateRefreshTokenValue();
-    public RefreshToken GenerateRefreshToken(Guid userId);
+    public (RefreshToken Token, string RawToken) GenerateRefreshToken(Guid userId);
 }
