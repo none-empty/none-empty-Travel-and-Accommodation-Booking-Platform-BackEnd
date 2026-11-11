@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Exceptions;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Ad_Hoc_Persistance;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
@@ -36,7 +37,7 @@ public class ConfirmReservation : IConfirmReservation
                     .ToListAsync();
 
                 if (rooms.Any(r => r.Status != RoomStatus.Available))
-                    throw new Exception("One of the selected rooms is not available.");
+                    throw new ConflictException("One of the selected rooms is not available.");
 
                 
                 foreach (var room in rooms) { room.Status = RoomStatus.In_Use; }

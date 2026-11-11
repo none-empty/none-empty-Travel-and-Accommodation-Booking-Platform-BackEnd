@@ -20,6 +20,7 @@ public class ReservationConfirmationController : ControllerBase
     [HttpPost] 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ConfirmReservation([FromBody]ConfirmReservationRequest request)
     {

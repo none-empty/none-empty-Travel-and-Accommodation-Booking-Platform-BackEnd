@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Exceptions;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
@@ -40,6 +41,6 @@ public class HotelSearchPredicatesRepo : ISearchPredicateRepo<Hotel>
 
         if (sortBy.Equals("PhoneNumber"))
             return hotel => hotel.PhoneNumber;
-        throw new InvalidOperationException("invalid sort by");
+        throw new BadRequestException("The requested sort field is not supported.");
     }
 }

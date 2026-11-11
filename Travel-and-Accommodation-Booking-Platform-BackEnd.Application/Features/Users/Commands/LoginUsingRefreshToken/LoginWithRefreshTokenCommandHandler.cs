@@ -1,3 +1,4 @@
+using System.Security.Authentication;
 using MediatR;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Repositories;
@@ -30,11 +31,11 @@ public class LoginWithRefreshTokenCommandHandler : IRequestHandler<LoginWithRefr
         
 
         if (TokenIsNotValid(refreshToken))
-            throw new ApplicationException("The refresh token has expired");
+            throw new InvalidCredentialException("Invalid or expired refresh token.");
 
 
         if (TokenIsNotForThatUser(refreshToken!.UserId, request.UserId))
-            throw new InvalidOperationException("mismatch between user and refresh token");
+            throw new InvalidCredentialException("Invalid or expired refresh token.");
 
         var user = refreshToken.User;
         var roles = await _userRoleRepository.GetUserRoles(user!.UserId);
