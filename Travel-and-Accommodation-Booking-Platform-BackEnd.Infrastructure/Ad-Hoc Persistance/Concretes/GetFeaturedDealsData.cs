@@ -18,9 +18,9 @@ public class GetFeaturedDealsData : IGetFeaturedDealsData
     public Task<List<FeaturedDealsResponse>> Execute(int count)
     {
         return _context.Discounts
-            .Take(count)
             .Include(discount => discount.Hotel)
             .Where(discount => discount.State == DiscountState.Active)
+            .Take(count)
             .Select(discount => new FeaturedDealsResponse(
                 discount.Hotel!.HotelName,
                 discount.Hotel.City!.Name,
