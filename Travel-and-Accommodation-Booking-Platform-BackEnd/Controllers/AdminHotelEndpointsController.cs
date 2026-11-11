@@ -48,6 +48,7 @@ public class AdminHotelEndpointsController : ControllerBase
             Owner = request.Owner,
             PricePerNight = request.PricePerNight,
             PhoneNumber = request.PhoneNumber,
+            ThumbnailUrl = request.ThumbnailUrl,
             StarRating = request.StarRating
         };
 
@@ -83,6 +84,7 @@ public class AdminHotelEndpointsController : ControllerBase
         hotel.Owner = request.Owner;
         hotel.PricePerNight = request.PricePerNight;
         hotel.PhoneNumber = request.PhoneNumber;
+        hotel.ThumbnailUrl = request.ThumbnailUrl;
         hotel.StarRating = request.StarRating;
         
         return hotel;
