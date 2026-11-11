@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" version="24.7.17" type="device">
+  <diagram id="database-schema" name="Database schema">
+    <mxGraphModel dx="2420" dy="1510" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2420" pageHeight="1510" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="&lt;b&gt;Travel &amp;amp; Accommodation · Database schema&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=28;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="80" y="25" width="2200" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="SQL Server · 13 tables · 14 foreign keys · EF Core migration snapshot" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="80" y="75" width="2200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Amenity" value="Amenities" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="Amenities">
+          <mxGeometry x="80" y="150" width="440" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="Amenity.AmenityId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;AmenityId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Amenity" column="AmenityId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Amenity.AmenityName" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;AmenityName&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Amenity" column="AmenityName" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="City" value="Cities" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="Cities">
+          <mxGeometry x="680" y="150" width="440" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="City.CityId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;CityId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="City" column="CityId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="City.Country" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Country&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="City" column="Country" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="City.Name" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Name&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="City" column="Name" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="City.NumberOfHotels" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;NumberOfHotels&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="City" column="NumberOfHotels" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="City.PostOffice" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;PostOffice&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="City" column="PostOffice" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="146" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="City.ThumbnailUrl" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;ThumbnailUrl&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max) ?&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="City" column="ThumbnailUrl" sqlType="nvarchar(max)" nullable="true" keys="">
+          <mxGeometry x="0" y="173" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount" value="Discounts" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="Discounts">
+          <mxGeometry x="80" y="710" width="440" height="254" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.DiscountId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;DiscountId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Discount" column="DiscountId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.HotelId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;HotelId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Discount" column="HotelId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.DiscountDescription" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;DiscountDescription&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max) ?&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Discount" column="DiscountDescription" sqlType="nvarchar(max)" nullable="true" keys="">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.DiscountedPrice" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;DiscountedPrice&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;decimal(34,2)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Discount" column="DiscountedPrice" sqlType="decimal(34,2)" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.ExpirationDate" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;ExpirationDate&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;datetime2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Discount" column="ExpirationDate" sqlType="datetime2" nullable="false" keys="">
+          <mxGeometry x="0" y="146" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.OriginalPrice" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;OriginalPrice&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;decimal(34,2)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Discount" column="OriginalPrice" sqlType="decimal(34,2)" nullable="false" keys="">
+          <mxGeometry x="0" y="173" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.StartingDate" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;StartingDate&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;datetime2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Discount" column="StartingDate" sqlType="datetime2" nullable="false" keys="">
+          <mxGeometry x="0" y="200" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Discount.State" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;State&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(200)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Discount" column="State" sqlType="nvarchar(200)" nullable="false" keys="">
+          <mxGeometry x="0" y="227" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel" value="Hotels" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="Hotels">
+          <mxGeometry x="680" y="450" width="440" height="335" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.HotelId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;HotelId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Hotel" column="HotelId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.CityId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;CityId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Hotel" column="CityId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.Address" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Address&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Hotel" column="Address" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.Category" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Category&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(200)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Hotel" column="Category" sqlType="nvarchar(200)" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.Description" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Description&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max) ?&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Hotel" column="Description" sqlType="nvarchar(max)" nullable="true" keys="">
+          <mxGeometry x="0" y="146" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.HotelName" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;HotelName&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Hotel" column="HotelName" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="173" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.Owner" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Owner&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Hotel" column="Owner" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="200" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.PhoneNumber" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;PhoneNumber&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(15)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Hotel" column="PhoneNumber" sqlType="nvarchar(15)" nullable="false" keys="">
+          <mxGeometry x="0" y="227" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.PricePerNight" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;PricePerNight&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;decimal(34,2)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Hotel" column="PricePerNight" sqlType="decimal(34,2)" nullable="false" keys="">
+          <mxGeometry x="0" y="254" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.StarRating" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;StarRating&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Hotel" column="StarRating" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="281" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Hotel.ThumbnailUrl" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;ThumbnailUrl&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max) ?&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Hotel" column="ThumbnailUrl" sqlType="nvarchar(max)" nullable="true" keys="">
+          <mxGeometry x="0" y="308" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelAmenity" value="HotelAmenities" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="HotelAmenities">
+          <mxGeometry x="80" y="410" width="440" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelAmenity.HotelId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK/FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;HotelId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="HotelAmenity" column="HotelId" sqlType="uniqueidentifier" nullable="false" keys="PK/FK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelAmenity.AmenityId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK/FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;AmenityId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="HotelAmenity" column="AmenityId" sqlType="uniqueidentifier" nullable="false" keys="PK/FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelImage" value="HotelsImages" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="HotelsImages">
+          <mxGeometry x="80" y="1090" width="440" height="119" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelImage.ImageId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;ImageId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="HotelImage" column="ImageId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelImage.HotelId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;HotelId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="HotelImage" column="HotelId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelImage.ImageUrl" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;ImageUrl&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="HotelImage" column="ImageUrl" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelReview" value="HotelsReviews" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="HotelsReviews">
+          <mxGeometry x="1280" y="150" width="440" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelReview.ReviewId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;ReviewId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="HotelReview" column="ReviewId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelReview.HotelId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;HotelId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="HotelReview" column="HotelId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelReview.UserId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;UserId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="HotelReview" column="UserId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="HotelReview.Review" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Review&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="HotelReview" column="Review" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation" value="Reservations" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dcfce7;swimlaneFillColor=#ffffff;strokeColor=#22a06b;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="Reservations">
+          <mxGeometry x="1280" y="450" width="440" height="335" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.ReservationId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;ReservationId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Reservation" column="ReservationId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.HotelId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;HotelId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Reservation" column="HotelId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.UserId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;UserId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Reservation" column="UserId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.CheckInDate" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;CheckInDate&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;datetime2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Reservation" column="CheckInDate" sqlType="datetime2" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.CheckOutDate" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;CheckOutDate&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;datetime2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Reservation" column="CheckOutDate" sqlType="datetime2" nullable="false" keys="">
+          <mxGeometry x="0" y="146" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.Date" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Date&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;datetime2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Reservation" column="Date" sqlType="datetime2" nullable="false" keys="">
+          <mxGeometry x="0" y="173" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.NumberOfRooms" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;NumberOfRooms&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Reservation" column="NumberOfRooms" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="200" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.PaymentMethod" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;PaymentMethod&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(200)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Reservation" column="PaymentMethod" sqlType="nvarchar(200)" nullable="false" keys="">
+          <mxGeometry x="0" y="227" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.Remarks" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Remarks&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max) ?&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Reservation" column="Remarks" sqlType="nvarchar(max)" nullable="true" keys="">
+          <mxGeometry x="0" y="254" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.Status" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Status&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(200)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Reservation" column="Status" sqlType="nvarchar(200)" nullable="false" keys="">
+          <mxGeometry x="0" y="281" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Reservation.TotalPrice" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;TotalPrice&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;decimal(34,2)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Reservation" column="TotalPrice" sqlType="decimal(34,2)" nullable="false" keys="">
+          <mxGeometry x="0" y="308" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Room" value="Rooms" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dbeafe;swimlaneFillColor=#ffffff;strokeColor=#3b82f6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="Rooms">
+          <mxGeometry x="680" y="1050" width="440" height="227" as="geometry" />
+        </mxCell>
+        <mxCell id="Room.RoomId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;RoomId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Room" column="RoomId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Room.HotelId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;HotelId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Room" column="HotelId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Room.AdultsCapacity" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;AdultsCapacity&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Room" column="AdultsCapacity" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Room.ChildrenCapacity" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;ChildrenCapacity&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Room" column="ChildrenCapacity" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Room.Description" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Description&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max) ?&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Room" column="Description" sqlType="nvarchar(max)" nullable="true" keys="">
+          <mxGeometry x="0" y="146" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Room.RoomNumber" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;RoomNumber&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="Room" column="RoomNumber" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="173" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="Room.Status" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Status&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(200)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="Room" column="Status" sqlType="nvarchar(200)" nullable="false" keys="">
+          <mxGeometry x="0" y="200" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RoomReservation" value="RoomReservations" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#dcfce7;swimlaneFillColor=#ffffff;strokeColor=#22a06b;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="RoomReservations">
+          <mxGeometry x="1280" y="1050" width="440" height="173" as="geometry" />
+        </mxCell>
+        <mxCell id="RoomReservation.RoomReservationId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;RoomReservationId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="RoomReservation" column="RoomReservationId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RoomReservation.ReservationId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;ReservationId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="RoomReservation" column="ReservationId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RoomReservation.RoomId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;RoomId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="RoomReservation" column="RoomId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RoomReservation.NumberOfAdults" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;NumberOfAdults&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="RoomReservation" column="NumberOfAdults" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RoomReservation.NumberOfChildren" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;NumberOfChildren&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;int&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="RoomReservation" column="NumberOfChildren" sqlType="int" nullable="false" keys="">
+          <mxGeometry x="0" y="146" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="User" value="Users" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#ede9fe;swimlaneFillColor=#ffffff;strokeColor=#8b5cf6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="Users">
+          <mxGeometry x="1880" y="450" width="440" height="173" as="geometry" />
+        </mxCell>
+        <mxCell id="User.UserId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;UserId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="User" column="UserId" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="User.Email" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;UQ&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Email&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(450)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="User" column="Email" sqlType="nvarchar(450)" nullable="false" keys="UQ">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="User.PasswordHash" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;PasswordHash&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(max)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="User" column="PasswordHash" sqlType="nvarchar(max)" nullable="false" keys="">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="User.PhoneNumber" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;PhoneNumber&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(15)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="User" column="PhoneNumber" sqlType="nvarchar(15)" nullable="false" keys="">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="User.UserName" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;UQ&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;UserName&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(450)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="User" column="UserName" sqlType="nvarchar(450)" nullable="false" keys="UQ">
+          <mxGeometry x="0" y="146" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="UserRole" value="UsersRoles" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#ede9fe;swimlaneFillColor=#ffffff;strokeColor=#8b5cf6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="UsersRoles">
+          <mxGeometry x="1880" y="150" width="440" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="UserRole.UserId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK/FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;UserId&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="UserRole" column="UserId" sqlType="uniqueidentifier" nullable="false" keys="PK/FK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="UserRole.Role" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;Role&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(200)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="UserRole" column="Role" sqlType="nvarchar(200)" nullable="false" keys="PK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RefreshToken" value="RefreshTokens" style="swimlane;html=1;startSize=38;horizontal=1;rounded=0;collapsible=0;container=1;whiteSpace=wrap;fillColor=#ede9fe;swimlaneFillColor=#ffffff;strokeColor=#8b5cf6;fontSize=17;fontStyle=1;align=left;spacingLeft=12;" vertex="1" parent="1" table="RefreshTokens">
+          <mxGeometry x="1880" y="1050" width="440" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="RefreshToken.Id" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;PK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;&lt;b&gt;Id&lt;/b&gt;&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="RefreshToken" column="Id" sqlType="uniqueidentifier" nullable="false" keys="PK">
+          <mxGeometry x="0" y="38" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RefreshToken.UserId" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;FK&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;UserId&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;uniqueidentifier&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="RefreshToken" column="UserId" sqlType="uniqueidentifier" nullable="false" keys="FK">
+          <mxGeometry x="0" y="65" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RefreshToken.ExpiresOnUtc" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;ExpiresOnUtc&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;datetime2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#f8fafc;strokeColor=none;" vertex="1" parent="RefreshToken" column="ExpiresOnUtc" sqlType="datetime2" nullable="false" keys="">
+          <mxGeometry x="0" y="92" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="RefreshToken.Token" value="&lt;table style=&quot;width:100%;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:52px;color:#64748b;font-size:10px&quot;&gt;UQ&lt;/td&gt;&lt;td style=&quot;width:174px&quot;&gt;Token&lt;/td&gt;&lt;td style=&quot;color:#475569;font-size:11px&quot;&gt;nvarchar(300)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;spacingLeft=8;spacingRight=6;fontSize=12;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="RefreshToken" column="Token" sqlType="nvarchar(300)" nullable="false" keys="UQ">
+          <mxGeometry x="0" y="119" width="440" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-0" value="HotelId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0;exitY=0.60;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hotel" target="Discount" foreignKey="HotelId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="651" />
+              <mxPoint x="590" y="774" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="relation-1" value="CityId · RESTRICT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="City" target="Hotel" foreignKey="CityId" onDelete="Restrict">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-2" value="AmenityId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Amenity" target="HotelAmenity" foreignKey="AmenityId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-3" value="HotelId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0;exitY=0.12;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hotel" target="HotelAmenity" foreignKey="HotelId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-4" value="HotelId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0;exitY=0.90;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hotel" target="HotelImage" foreignKey="HotelId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="752" />
+              <mxPoint x="620" y="1150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="relation-5" value="HotelId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=1;exitY=0.15;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hotel" target="HotelReview" foreignKey="HotelId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="500" />
+              <mxPoint x="1180" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="relation-6" value="UserId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0;exitY=0.15;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="User" target="HotelReview" foreignKey="UserId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1800" y="476" />
+              <mxPoint x="1800" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="relation-7" value="HotelId · RESTRICT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hotel" target="Reservation" foreignKey="HotelId" onDelete="Restrict">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-8" value="UserId · RESTRICT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0;exitY=0.65;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="User" target="Reservation" foreignKey="UserId" onDelete="Restrict">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-9" value="HotelId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Hotel" target="Room" foreignKey="HotelId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-10" value="ReservationId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Reservation" target="RoomReservation" foreignKey="ReservationId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-11" value="RoomId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Room" target="RoomReservation" foreignKey="RoomId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-12" value="UserId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="User" target="UserRole" foreignKey="UserId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="relation-13" value="UserId · CASCADE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;startArrow=ERone;startFill=0;endArrow=ERzeroToMany;endFill=0;strokeColor=#64748b;strokeWidth=1.5;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="User" target="RefreshToken" foreignKey="UserId" onDelete="Cascade">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Legend&lt;/b&gt; &amp;nbsp; PK primary key · FK foreign key · UQ unique index · ? nullable column (all other columns NOT NULL)&lt;br&gt;Each connector runs from exactly one parent to zero or many children. Every child requires its parent. Labels show FK column and delete behavior.&lt;br&gt;HotelAmenities and UsersRoles have composite primary keys. See the next page for check constraints and enum storage." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=14;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1340" width="2250" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="source" value="Source: Infrastructure/Migrations/AppDbContextModelSnapshot.cs, cross-checked with AppDbContext mappings and Domain models. Describes the code schema; does not inspect a running database." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=12;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1440" width="2250" height="35" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="constraints-and-enums" name="Constraints and enums">
+    <mxGraphModel dx="2420" dy="1510" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="details-title" value="&lt;b&gt;Database constraints &amp;amp; enum storage&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=28;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="70" y="30" width="1450" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="details-subtitle" value="SQL Server check expressions from the EF Core migration snapshot" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=16;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="70" y="85" width="1450" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="checks-City" value="&lt;b&gt;Cities&lt;/b&gt;&lt;br&gt;&lt;b&gt;CK_City_NumberOfHotels_NonNegative&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[NumberOfHotels] &amp;gt;= 0&lt;/font&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="145" width="1450" height="87" as="geometry" />
+        </mxCell>
+        <mxCell id="checks-Hotel" value="&lt;b&gt;Hotels&lt;/b&gt;&lt;br&gt;&lt;b&gt;CK_Hotel_PhoneNumber_ValidFormat&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[PhoneNumber] NOT LIKE &amp;#x27;%[^0-9]%&amp;#x27; AND LEN(PhoneNumber) BETWEEN 7 AND 15&lt;/font&gt;&lt;br&gt;&lt;b&gt;CK_Hotel_PricePerNight_NonNegative&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[PricePerNight] &amp;gt;= 0&lt;/font&gt;&lt;br&gt;&lt;b&gt;CK_Hotel_StarRating_InRange&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[StarRating] BETWEEN 1 AND 5&lt;/font&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="250" width="1450" height="191" as="geometry" />
+        </mxCell>
+        <mxCell id="checks-Reservation" value="&lt;b&gt;Reservations&lt;/b&gt;&lt;br&gt;&lt;b&gt;CK_reservation_NumberOfRooms_Positive&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[NumberOfRooms] &amp;gt; 0&lt;/font&gt;&lt;br&gt;&lt;b&gt;CK_reservation_TotalPrice_NonNegative&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[TotalPrice] &amp;gt;= 0&lt;/font&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="459" width="1450" height="139" as="geometry" />
+        </mxCell>
+        <mxCell id="checks-Room" value="&lt;b&gt;Rooms&lt;/b&gt;&lt;br&gt;&lt;b&gt;CK_Room_AdultsCapacity_NonNegative&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[AdultsCapacity] &amp;gt;= 0&lt;/font&gt;&lt;br&gt;&lt;b&gt;CK_Room_ChildrenCapacity_NonNegative&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[ChildrenCapacity] &amp;gt;= 0&lt;/font&gt;&lt;br&gt;&lt;b&gt;CK_Room_RoomNumber_Positive&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[RoomNumber] &amp;gt; 0&lt;/font&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="616" width="1450" height="191" as="geometry" />
+        </mxCell>
+        <mxCell id="checks-User" value="&lt;b&gt;Users&lt;/b&gt;&lt;br&gt;&lt;b&gt;CK_User_Email_ValidFormat&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[Email] LIKE &amp;#x27;_%@_%._%&amp;#x27;&lt;/font&gt;&lt;br&gt;&lt;b&gt;CK_User_PhoneNumber_ValidFormat&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;monospace&quot;&gt;[PhoneNumber] NOT LIKE &amp;#x27;%[^0-9]%&amp;#x27; AND LEN(PhoneNumber) BETWEEN 7 AND 15&lt;/font&gt;" style="rounded=0;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=12;fillColor=#f8fafc;strokeColor=#cbd5e1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="825" width="1450" height="139" as="geometry" />
+        </mxCell>
+        <mxCell id="enum-values" value="&lt;b&gt;Enums stored as nvarchar(200)&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Reservations.Status&lt;/b&gt; (BookingStatus): Scheduled, Checked_In, Checked_Out, Cancelled, No_Show&lt;br&gt;&lt;br&gt;&lt;b&gt;Discounts.State&lt;/b&gt; (DiscountState): Pending, Active, Suspended, Expired&lt;br&gt;&lt;br&gt;&lt;b&gt;Hotels.Category&lt;/b&gt; (HotelCategory): Luxury, Budget, Boutique&lt;br&gt;&lt;br&gt;&lt;b&gt;Reservations.PaymentMethod&lt;/b&gt; (PaymentMethod): Visa, MasterCard, American_Express, Discover, Apple_Pay, Google_Pay, Samsung_Pay, PayPal, Stripe, Square&lt;br&gt;&lt;br&gt;&lt;b&gt;Rooms.Status&lt;/b&gt; (RoomStatus): Available, Unavailable, In_Use&lt;br&gt;&lt;br&gt;&lt;b&gt;UsersRoles.Role&lt;/b&gt; (SiteRole): Admin, User" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=14;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="70" y="982" width="1450" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="constraint-notes" value="&lt;b&gt;Unique indexes:&lt;/b&gt; Users.Email, Users.UserName, RefreshTokens.Token.&lt;br&gt;Foreign-key columns have the indexes recorded in the snapshot; HotelAmenities.HotelId and UsersRoles.UserId are leading columns of their composite primary keys.&lt;br&gt;Enum members are application values; the database schema does not add CHECK constraints for enum membership." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=14;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1297" width="1450" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

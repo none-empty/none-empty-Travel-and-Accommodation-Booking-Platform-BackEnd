@@ -21,7 +21,7 @@ The backend uses ASP.NET Core 9, Entity Framework Core with SQL Server, MediatR,
 | [Domain](Travel-and-Accommodation-Booking-Platform-BackEnd.Domain) | Entities and domain enums. |
 | [Infrastructure](Travel-and-Accommodation-Booking-Platform-BackEnd.Infrastructure) | Database access, migrations, repositories, JWT generation, Redis, and email services. |
 
-The database schema is represented by the domain entities, [EF Core mappings](Travel-and-Accommodation-Booking-Platform-BackEnd.Infrastructure/AppDbContextFiles/AppDbContext.OnModelCreating.cs), and [migration snapshot](Travel-and-Accommodation-Booking-Platform-BackEnd.Infrastructure/Migrations/AppDbContextModelSnapshot.cs).
+The editable [database schema diagram](docs/database-schema.drawio) opens in draw.io Desktop or [diagrams.net](https://app.diagrams.net/). It includes all 13 tables, columns, SQL types, primary and foreign keys, nullable columns, unique indexes, and the 14 foreign-key relationships. Its second page documents check constraints and enum storage. The diagram follows the [migration snapshot](Travel-and-Accommodation-Booking-Platform-BackEnd.Infrastructure/Migrations/AppDbContextModelSnapshot.cs), cross-checked against the domain entities and [EF Core mappings](Travel-and-Accommodation-Booking-Platform-BackEnd.Infrastructure/AppDbContextFiles/AppDbContext.OnModelCreating.cs); update it when the schema changes.
 
 ## Requirements
 
