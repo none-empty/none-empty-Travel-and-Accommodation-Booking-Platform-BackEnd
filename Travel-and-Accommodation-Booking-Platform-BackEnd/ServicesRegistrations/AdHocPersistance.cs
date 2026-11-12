@@ -13,6 +13,7 @@ public static class AdHocPersistance
         services.AddScoped<IGetTrendingDestinations, GetTrendingDestinations>();
         services.AddScoped<IGetHotelDetailedInfo, GetHotelDetailedInfo>();
         services.AddScoped<IConfirmReservation, ConfirmReservation>();
+        services.AddScoped<IGetRoomCapacities, GetRoomCapacities>();
         services.AddScoped(typeof(IFetchNextRecordsFromDatabase<>), typeof(FetchNextRecordsFromDatabase<>));
         return services;
     }
