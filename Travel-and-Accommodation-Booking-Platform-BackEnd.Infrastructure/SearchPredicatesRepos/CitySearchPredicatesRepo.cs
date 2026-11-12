@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Exceptions;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
@@ -8,13 +7,13 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Searc
 
 public class CitySearchPredicatesRepo : ISearchPredicateRepo<City>
 {
-    public List<Expression<Func<City, bool>>> GetSearchPredicates(string search, Guid prevElementId, bool down)
+    public List<Expression<Func<City, bool>>> GetSearchPredicates(string search)
     {
-        Expression<Func<City, bool>> idPredicate = down ? city => city.CityId > prevElementId : city => city.CityId < prevElementId;  
+        if (string.IsNullOrWhiteSpace(search))
+            return [entity => true];
         
         var predicates = new List<Expression<Func<City, bool>>>()
         {
-            idPredicate,
             city => EF.Functions.Like(city.Country , $"{search}" ),
             city => EF.Functions.Like(city.Name, $"{search}" ),
             city => EF.Functions.Like(city.PostOffice, $"{search}" ),
@@ -26,27 +25,17 @@ public class CitySearchPredicatesRepo : ISearchPredicateRepo<City>
         return predicates;
     }
 
+    public Expression<Func<City, bool>> GetCursorPredicate(Guid prevElementId, bool down)
+    {
+        if (prevElementId == Guid.Empty)
+            return entity => true;
+
+        return down ? city => city.CityId > prevElementId
+            : city => city.CityId < prevElementId;
+    }
+
     public Expression<Func<City, Guid>> GetPrimaryKeyDelegate()
     {
         return city => city.CityId;
-    }
-
-    public Expression<Func<City, string>>? GetSortByDelegate(string? sortBy)
-    {
-        if (sortBy is null) return null;
-
-        if (sortBy.Equals("Name"))
-            return city => city.Name;
-
-        if (sortBy.Equals("Country"))
-            return city => city.Country;
-        
-        if (sortBy.Equals("PostOffice"))
-            return city => city.PostOffice;
-
-        if (sortBy.Equals("NumberOfHotels"))
-            return city => city.NumberOfHotels.ToString();
-        
-        throw new BadRequestException("The requested sort field is not supported.");
     }
 }

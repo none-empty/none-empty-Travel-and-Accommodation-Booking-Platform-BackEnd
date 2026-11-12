@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Exceptions;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
@@ -8,12 +7,13 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Searc
 
 public class HotelSearchPredicatesRepo : ISearchPredicateRepo<Hotel>
 {
-    public List<Expression<Func<Hotel, bool>>> GetSearchPredicates(string search, Guid prevElementId,bool down)
+    public List<Expression<Func<Hotel, bool>>> GetSearchPredicates(string search)
     {
-        Expression<Func<Hotel, bool>> idPredicate = down ? hotel => hotel.HotelId > prevElementId : hotel => hotel.HotelId < prevElementId;
+        if (string.IsNullOrWhiteSpace(search))
+            return [entity => true];
         return new List<Expression<Func<Hotel, bool>>>()
         {
-         idPredicate,
+
           hotel => EF.Functions.Like(hotel.HotelName, $"{search}" ),
           hotel => EF.Functions.Like(hotel.Category.ToString(), $"{search}" ),
           hotel => EF.Functions.Like(hotel.Address, $"{search}" ),
@@ -21,26 +21,17 @@ public class HotelSearchPredicatesRepo : ISearchPredicateRepo<Hotel>
         };
     }
 
+    public Expression<Func<Hotel, bool>> GetCursorPredicate(Guid prevElementId, bool down)
+    {
+        if (prevElementId == Guid.Empty)
+            return entity => true;
+
+        return down ? hotel => hotel.HotelId > prevElementId
+            : hotel => hotel.HotelId < prevElementId;
+    }
+
     public Expression<Func<Hotel, Guid>> GetPrimaryKeyDelegate()
     {
         return hotel => hotel.HotelId;
-    }
-
-    public Expression<Func<Hotel, string>>? GetSortByDelegate(string? sortBy)
-    {
-        if (sortBy is null) return null;
-
-        if (sortBy.Equals("HotelName"))
-            return hotel => hotel.HotelName;
-
-        if (sortBy.Equals("Category"))
-            return hotel => hotel.Category.ToString();
-
-        if (sortBy.Equals("Address"))
-            return hotel => hotel.Address;
-
-        if (sortBy.Equals("PhoneNumber"))
-            return hotel => hotel.PhoneNumber;
-        throw new BadRequestException("The requested sort field is not supported.");
     }
 }

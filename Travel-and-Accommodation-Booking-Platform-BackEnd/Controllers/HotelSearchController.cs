@@ -25,10 +25,10 @@ public class HotelSearchController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Search([FromQuery]string search = "",[FromQuery]Guid prevElementId = default
-    ,[FromQuery, Range(1, 100)]int limit = 30,[FromQuery]string? sortBy = null,[FromQuery]bool down = true)
+    ,[FromQuery, Range(1, 100)]int limit = 30,[FromQuery]bool down = true)
     {
         var query = new FetchNextRecordsQuery<Hotel>(prevElementId,limit,
-            search,down,sortBy);
+            search,down);
 
         var result = await _mediator.Send(query);
         

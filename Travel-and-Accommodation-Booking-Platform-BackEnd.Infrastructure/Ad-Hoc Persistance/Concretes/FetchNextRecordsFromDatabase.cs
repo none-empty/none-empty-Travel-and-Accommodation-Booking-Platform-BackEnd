@@ -17,7 +17,7 @@ where T5Entity : class
     }
 
     public async Task<FetchNextRecordsQueryResponse<T5Entity>> Execute(
-        List<Expression<Func<T5Entity,bool>>> searchPredicates,Expression<Func<T5Entity,string>>?getSortBy, 
+        List<Expression<Func<T5Entity,bool>>> searchPredicates,Expression<Func<T5Entity,bool>> cursorPredicate,
         Expression<Func<T5Entity, Guid>>getPrimaryKey, int limit,bool down)
     {
         var baseQuery = _context.Set<T5Entity>();
@@ -27,21 +27,20 @@ where T5Entity : class
             query1 = query1.Union(baseQuery.Where(predicate));
         }
 
-        var query2 = down ? query1.OrderBy(getPrimaryKey): query1.OrderByDescending(getPrimaryKey);
-        
-        if(getSortBy is not null)
-            query2 = down ? query2.ThenBy(getSortBy) : query2.ThenByDescending(getSortBy);
-            
+        var filteredQuery = query1.Where(cursorPredicate);
+        var query2 = down ? filteredQuery.OrderBy(getPrimaryKey) : filteredQuery.OrderByDescending(getPrimaryKey);
+
         var result = await query2.Take(limit + 1).ToListAsync();
         
         bool hasMore = result.Count > limit;
         var primaryKeyDelegate = getPrimaryKey.Compile();
-        Guid? nextLastId = hasMore ? result.Select(entity =>primaryKeyDelegate(entity)).Last() : null;
         
         if (hasMore)
         {
             result.RemoveAt(result.Count - 1);
         }
+
+        Guid? nextLastId = hasMore ? primaryKeyDelegate(result[^1]) : null;
 
         return new FetchNextRecordsQueryResponse<T5Entity>(result,nextLastId);
     }

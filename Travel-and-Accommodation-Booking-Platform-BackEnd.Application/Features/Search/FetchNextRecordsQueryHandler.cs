@@ -19,12 +19,11 @@ public class FetchNextRecordsQueryHandler<T3Entity> : IRequestHandler<FetchNextR
 
     public Task<FetchNextRecordsQueryResponse<T3Entity>> Handle(FetchNextRecordsQuery<T3Entity> request, CancellationToken cancellationToken)
     {
-        var searchPredicates = _searchPredicateRepo.GetSearchPredicates(request.SearchTopic,
-            request.PrevElementId,request.Down);
+        var searchPredicates = _searchPredicateRepo.GetSearchPredicates(request.SearchTopic);
         var getPrimaryKey = _searchPredicateRepo.GetPrimaryKeyDelegate();
-        var getSortBy = _searchPredicateRepo.GetSortByDelegate(request.SortBy);
+        var cursorPredicate = _searchPredicateRepo.GetCursorPredicate(request.PrevElementId, request.Down);
         
-        return _fetchNextRecordsFromDatabase.Execute(searchPredicates, getSortBy,getPrimaryKey,
+        return _fetchNextRecordsFromDatabase.Execute(searchPredicates, cursorPredicate,getPrimaryKey,
             request.Limit, request.Down);
     }
 }
