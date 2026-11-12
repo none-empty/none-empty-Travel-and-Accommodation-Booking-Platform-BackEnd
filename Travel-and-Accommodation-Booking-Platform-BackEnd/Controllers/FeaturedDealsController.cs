@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Ad_Hoc_Persistance;
@@ -18,8 +19,9 @@ public class FeaturedDealsController : ControllerBase
     
     [HttpGet("featured-deals")] 
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetFeaturedDeals([FromQuery]int count = 5)
+    public async Task<IActionResult> GetFeaturedDeals([FromQuery, Range(1, 100)]int count = 5)
     {
         var result = await _getFeaturedDealsData.Execute(count);
 

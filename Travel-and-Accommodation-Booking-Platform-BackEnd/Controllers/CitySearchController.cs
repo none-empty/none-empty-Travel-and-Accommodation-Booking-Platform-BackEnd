@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ public class CitySearchController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Search([FromQuery]string search = "",[FromQuery]Guid prevElementId = default
-        ,[FromQuery]int limit = 30,[FromQuery]string? sortBy = null,[FromQuery]bool down = true)
+        ,[FromQuery, Range(1, 100)]int limit = 30,[FromQuery]string? sortBy = null,[FromQuery]bool down = true)
     {
         var query = new FetchNextRecordsQuery<City>(prevElementId,limit,
             search,down,sortBy);
