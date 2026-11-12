@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features.Users.Commands.Logout;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.DTOs;
 
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Controllers;
 
@@ -23,15 +24,17 @@ public class LogoutController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Logout()
+    public async Task<IActionResult> Logout([FromBody] LogoutRequest request, CancellationToken cancellationToken)
     {
         var jti = User.FindFirstValue(JwtRegisteredClaimNames.Jti);
         var exp = User.FindFirstValue(JwtRegisteredClaimNames.Exp);
+        var subject = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub);
         
-        if (jti == null || exp == null)
+        if (jti == null || exp == null || !Guid.TryParse(subject, out var userId))
             return StatusCode(StatusCodes.Status400BadRequest);
 
-        await _mediator.Send(new LogoutCommand(jti, exp));
+        await _mediator.Send(new LogoutCommand(jti, exp, userId, request.RefreshToken), cancellationToken);
         
         return StatusCode(StatusCodes.Status200OK);
     }

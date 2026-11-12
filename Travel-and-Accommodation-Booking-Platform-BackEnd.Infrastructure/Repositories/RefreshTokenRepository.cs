@@ -57,4 +57,12 @@ public class RefreshTokenRepository : IRefreshTokenRepository
             .Include(r => r.User)
             .FirstOrDefaultAsync(r => r.TokenHash.Equals(tokenHash));
     }
+
+    public Task RevokeAsync(string refreshToken, Guid userId, CancellationToken cancellationToken)
+    {
+        var tokenHash = _refreshTokenHasher.Hash(refreshToken);
+        return _context.Set<RefreshToken>()
+            .Where(token => token.TokenHash == tokenHash && token.UserId == userId)
+            .ExecuteDeleteAsync(cancellationToken);
+    }
 }
