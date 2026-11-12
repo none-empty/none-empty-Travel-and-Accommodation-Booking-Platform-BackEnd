@@ -119,9 +119,8 @@ public partial class AppDbContext
         {
             entity.HasKey(discount => discount.DiscountId);
 
-            entity.Property(discount => discount.State)
-                .HasConversion<string>()
-                .HasMaxLength(200);
+            entity.Property(discount => discount.IsCancelled)
+                .HasDefaultValue(false);
             
             entity.Property(discount => discount.OriginalPrice).HasColumnType("decimal(34,2)");
             entity.Property(discount => discount.DiscountedPrice).HasColumnType("decimal(34,2)");

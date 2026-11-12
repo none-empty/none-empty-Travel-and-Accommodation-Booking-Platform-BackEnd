@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Repositories;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.AppDbContextFiles;
 
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Repositories;
@@ -9,10 +9,12 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Repos
 public class HotelRepository : IHotelRepository
 {
     private readonly AppDbContext _context;
+    private readonly IDateGetter _dateGetter;
 
-    public HotelRepository(AppDbContext context)
+    public HotelRepository(AppDbContext context, IDateGetter dateGetter)
     {
         _context = context;
+        _dateGetter = dateGetter;
     }
 
     public Task AddAsync(Hotel entity)
@@ -48,9 +50,14 @@ public class HotelRepository : IHotelRepository
 
     public Task<List<Discount>> GetHotelDiscounts(Guid id)
     {
+        var now = _dateGetter.GetUtcNow();
         return _context.Discounts
-            .Where(discount => discount.HotelId.Equals(id) 
-                               && discount.State == DiscountState.Active)
+            .Where(discount => discount.HotelId == id
+                && !discount.IsCancelled
+                && discount.StartingDate <= now
+                && now < discount.ExpirationDate)
+            .OrderBy(discount => discount.DiscountedPrice)
+            .ThenBy(discount => discount.DiscountId)
             .ToListAsync();
     }
 }

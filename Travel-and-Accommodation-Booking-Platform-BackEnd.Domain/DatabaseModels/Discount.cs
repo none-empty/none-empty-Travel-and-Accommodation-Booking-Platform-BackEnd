@@ -1,5 +1,3 @@
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
-
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
 public class Discount
@@ -12,7 +10,7 @@ public class Discount
     public decimal DiscountedPrice { get; set; }
     public DateTime StartingDate { get; set; }
     public DateTime ExpirationDate { get; set; }
-    public DiscountState State { get; set; }
+    public bool IsCancelled { get; set; }
 
     // Optional navigation
     public Hotel? Hotel { get; set; }
