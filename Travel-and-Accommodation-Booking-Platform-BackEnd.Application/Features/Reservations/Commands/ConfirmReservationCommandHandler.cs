@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Ad_Hoc_Persistance;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Repositories;
@@ -16,10 +17,12 @@ public class ConfirmReservationCommandHandler :
     private readonly IHotelRepository _hotelRepository;
     private readonly IEmailServiceManager _emailServiceManager;
     private readonly IUserRepository _userRepository;
+    private readonly ILogger<ConfirmReservationCommandHandler> _logger;
 
     public ConfirmReservationCommandHandler(IGuidGenerator guidGenerator,IDateGetter dateGetter
     ,IConfirmReservation confirmReservation,IHotelRepository hotelRepository,
-    IEmailServiceManager emailServiceManager,IUserRepository userRepository)
+    IEmailServiceManager emailServiceManager,IUserRepository userRepository,
+    ILogger<ConfirmReservationCommandHandler> logger)
     {
         _guidGenerator = guidGenerator;
         _dateGetter = dateGetter;
@@ -27,6 +30,7 @@ public class ConfirmReservationCommandHandler :
         _hotelRepository = hotelRepository;
         _emailServiceManager = emailServiceManager;
         _userRepository = userRepository;
+        _logger = logger;
     }
 
     public async Task<ConfirmReservationCommandResponse> Handle(ConfirmReservationCommand request, CancellationToken cancellationToken)
@@ -57,7 +61,16 @@ public class ConfirmReservationCommandHandler :
               reservation.PaymentMethod.ToString(),total);
               
               
-          await _emailServiceManager.SendEmail(userEmail,subject,body,html:true);
+          try
+          {
+              await _emailServiceManager.SendEmail(userEmail,subject,body,html:true);
+          }
+          catch (Exception exception)
+          {
+              _logger.LogWarning(exception,
+                  "Confirmation email failed for reservation {ReservationId}. The reservation was committed successfully.",
+                  reservation.ReservationId);
+          }
           
           return new ConfirmReservationCommandResponse
               (reservation.ReservationId,total);
