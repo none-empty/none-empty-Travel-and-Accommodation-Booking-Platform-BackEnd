@@ -44,7 +44,7 @@ public class AdminRoomEndpointsController : ControllerBase
            ChildrenCapacity = request.ChildrenCapacity,
            Description = request.Description,
            RoomNumber = request.RoomNumber,
-           Status = request.Status
+           IsBookable = request.IsBookable
         };
 
         await _roomRpository.AddAsync(room);
@@ -76,7 +76,7 @@ public class AdminRoomEndpointsController : ControllerBase
         room.ChildrenCapacity = request.ChildrenCapacity;
         room.Description = request.Description;
         room.RoomNumber = request.RoomNumber;
-        room.Status = request.Status;
+        room.IsBookable = request.IsBookable;
         return room;
     }
 }

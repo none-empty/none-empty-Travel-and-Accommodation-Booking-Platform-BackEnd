@@ -36,11 +36,44 @@ public class ConfirmReservation : IConfirmReservation
                     .FromSqlRaw(sql, roomIds.Cast<object>().ToArray())
                     .ToListAsync();
 
-                if (rooms.Any(r => r.Status != RoomStatus.Available))
-                    throw new ConflictException("One of the selected rooms is not available.");
+                if (rooms.Count != roomIds.Count)
+                    throw new BadRequestException("One or more selected rooms do not exist.");
+                if (rooms.Any(r => r.HotelId != reservation.HotelId))
+                    throw new BadRequestException("All selected rooms must belong to the reservation's hotel.");
 
-                
-                foreach (var room in rooms) { room.Status = RoomStatus.In_Use; }
+                foreach (var requested in roomsReservations)
+                {
+                    var room = rooms.Single(r => r.RoomId == requested.RoomId);
+                    if (requested.NumberOfAdults > room.AdultsCapacity ||
+                        requested.NumberOfChildren > room.ChildrenCapacity)
+                        throw new BadRequestException("The requested guests exceed a selected room's capacity.");
+                }
+
+                var overlaps = await _context.RoomReservations
+                    .Where(rr => roomIds.Contains(rr.RoomId) &&
+                        (rr.Reservation!.Status == BookingStatus.Scheduled ||
+                         rr.Reservation.Status == BookingStatus.Checked_In) &&
+                        rr.Reservation.CheckInDate < reservation.CheckOutDate &&
+                        rr.Reservation.CheckOutDate > reservation.CheckInDate)
+                    .Select(rr => new
+                    {
+                        rr.RoomId,
+                        rr.Reservation!.CheckInDate,
+                        rr.Reservation.CheckOutDate
+                    })
+                    .ToListAsync();
+
+                var conflicts = overlaps.GroupBy(r => r.RoomId)
+                    .OrderBy(group => group.Key)
+                    .Select(group => new RoomBookingConflict(group.Key,
+                        group.Select(r => new ReservationWindow(r.CheckInDate, r.CheckOutDate))
+                            .Distinct().OrderBy(window => window.CheckInDate).ToArray()))
+                    .ToArray();
+                if (conflicts.Length > 0)
+                    throw new ConflictException("Some selected rooms have conflicting reservations.", conflicts);
+                if (rooms.Any(r => !r.IsBookable))
+                    throw new ConflictException("One or more selected rooms are disabled for bookings.");
+
                 _context.Reservations.Add(reservation);
                 _context.RoomReservations.AddRange(roomsReservations);
                 await _context.SaveChangesAsync();

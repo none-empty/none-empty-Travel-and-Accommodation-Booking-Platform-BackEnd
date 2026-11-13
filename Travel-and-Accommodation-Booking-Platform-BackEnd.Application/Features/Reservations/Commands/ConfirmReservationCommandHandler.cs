@@ -1,4 +1,5 @@
 using MediatR;
+using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Exceptions;
 using Microsoft.Extensions.Logging;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces;
 using Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Common.Interfaces.Ad_Hoc_Persistance;
@@ -11,6 +12,7 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Application.Features
 public class ConfirmReservationCommandHandler : 
     IRequestHandler<ConfirmReservationCommand,ConfirmReservationCommandResponse>
 {
+    private readonly IGetRoomCapacities _getRoomCapacities;
     private readonly IGuidGenerator _guidGenerator;
     private readonly IDateGetter _dateGetter;
     private readonly IConfirmReservation _confirmReservation;
@@ -22,8 +24,9 @@ public class ConfirmReservationCommandHandler :
     public ConfirmReservationCommandHandler(IGuidGenerator guidGenerator,IDateGetter dateGetter
     ,IConfirmReservation confirmReservation,IHotelRepository hotelRepository,
     IEmailServiceManager emailServiceManager,IUserRepository userRepository,
-    ILogger<ConfirmReservationCommandHandler> logger)
+    ILogger<ConfirmReservationCommandHandler> logger, IGetRoomCapacities getRoomCapacities)
     {
+        _getRoomCapacities = getRoomCapacities;
         _guidGenerator = guidGenerator;
         _dateGetter = dateGetter;
         _confirmReservation = confirmReservation;
@@ -35,7 +38,14 @@ public class ConfirmReservationCommandHandler :
 
     public async Task<ConfirmReservationCommandResponse> Handle(ConfirmReservationCommand request, CancellationToken cancellationToken)
     {
+        var rooms = await _getRoomCapacities.Execute(request.RoomsData.Select(r => r.RoomId), cancellationToken);
+        if (rooms.Count != request.RoomsData.Count)
+            throw new BadRequestException("One or more selected rooms do not exist.");
+        var hotelIds = rooms.Values.Select(r => r.HotelId).Distinct().ToArray();
+        if (hotelIds.Length != 1)
+            throw new BadRequestException("All selected rooms must belong to the same hotel.");
         var reservation = ConstructReservation(request);
+        reservation.HotelId = hotelIds[0];
         
         var roomsReservations = request.RoomsData
             .Select(roomData => 
@@ -52,7 +62,7 @@ public class ConfirmReservationCommandHandler :
           var user = await _userRepository.GetByIdAsync(request.UserId);
           var userEmail = user!.Email;
           
-          var hotel = (await _hotelRepository.GetByIdAsync(request.HotelId))!;
+          var hotel = (await _hotelRepository.GetByIdAsync(reservation.HotelId))!;
           
           var subject = $"Reservation Confirmation - {user.UserName}- {hotel.HotelName} - {request.CheckInDate}";
           
@@ -84,7 +94,6 @@ public class ConfirmReservationCommandHandler :
            CheckInDate = request.CheckInDate,
            CheckOutDate = request.CheckOutDate,
            Date = _dateGetter.GetUtcNow(),
-           HotelId = request.HotelId,
            NumberOfRooms = request.RoomsData.Count,
            PaymentMethod = request.PaymentMethod,
            Remarks = request.Remarks,

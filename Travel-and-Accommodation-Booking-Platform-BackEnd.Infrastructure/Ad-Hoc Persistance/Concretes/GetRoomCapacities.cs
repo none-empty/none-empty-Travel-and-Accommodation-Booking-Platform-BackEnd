@@ -19,8 +19,8 @@ public class GetRoomCapacities : IGetRoomCapacities
         return _context.Rooms
             .AsNoTracking()
             .Where(room => ids.Contains(room.RoomId))
-            .Select(room => new { room.RoomId, room.AdultsCapacity, room.ChildrenCapacity })
+            .Select(room => new { room.RoomId, room.AdultsCapacity, room.ChildrenCapacity, room.HotelId })
             .ToDictionaryAsync(room => room.RoomId,
-                room => new RoomCapacity(room.AdultsCapacity, room.ChildrenCapacity), cancellationToken);
+                room => new RoomCapacity(room.AdultsCapacity, room.ChildrenCapacity, room.HotelId), cancellationToken);
     }
 }

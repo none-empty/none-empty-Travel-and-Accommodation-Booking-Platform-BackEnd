@@ -1,4 +1,3 @@
-using Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.StateEnums;
 
 namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Domain.DatabaseModels;
 
@@ -11,7 +10,7 @@ public class Room
     public int RoomNumber { get; set; }
     public int AdultsCapacity { get; set; }
     public int ChildrenCapacity { get; set; }
-    public RoomStatus Status { get; set; }
+    public bool IsBookable { get; set; }
     public string? Description { get; set; }
 
     // Optional navigation

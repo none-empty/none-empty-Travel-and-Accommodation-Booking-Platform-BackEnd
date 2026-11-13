@@ -29,7 +29,7 @@ public class ReservationConfirmationController : ControllerBase
         if(!parsed)return Unauthorized("User ID claim is missing or incorrect.");
         
         var command = new ConfirmReservationCommand(
-            request.HotelId, userId,
+            userId,
             request.CheckInDate, request.CheckOutDate,
             request.PaymentMethod,request.Remarks,
             request.RoomsData.Select(data => new RoomReservationInfo(data.RoomId,

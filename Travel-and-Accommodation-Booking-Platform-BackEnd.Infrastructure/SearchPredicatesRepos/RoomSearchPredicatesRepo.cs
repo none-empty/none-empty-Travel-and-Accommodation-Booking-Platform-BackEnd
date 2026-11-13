@@ -14,9 +14,11 @@ public class RoomSearchPredicatesRepo : ISearchPredicateRepo<Room>
         
         var predicates = new List<Expression<Func<Room, bool>>>()
         {
-            room => EF.Functions.Like(room.Hotel!.HotelName, $"{search}" ),
-            room => EF.Functions.Like(room.Status.ToString(), $"{search}" )
+            room => EF.Functions.Like(room.Hotel!.HotelName, $"{search}" )
         };
+
+        if (bool.TryParse(search, out var isBookable))
+            predicates.Add(room => room.IsBookable == isBookable);
 
         if(int.TryParse(search,out int roomNumber))
             predicates.Add(room => room.RoomNumber == roomNumber);

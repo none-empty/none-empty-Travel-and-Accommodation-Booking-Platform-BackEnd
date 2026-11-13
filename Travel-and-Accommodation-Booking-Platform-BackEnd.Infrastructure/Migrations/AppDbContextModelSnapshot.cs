@@ -297,10 +297,8 @@ namespace Travel_and_Accommodation_Booking_Platform_BackEnd.Infrastructure.Migra
                     b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<bool>("IsBookable")
+                        .HasColumnType("bit");
 
                     b.HasKey("RoomId");
 

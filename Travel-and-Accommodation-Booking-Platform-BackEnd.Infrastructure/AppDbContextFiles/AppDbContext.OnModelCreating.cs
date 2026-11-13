@@ -90,9 +90,7 @@ public partial class AppDbContext
         {
             entity.HasKey(room => room.RoomId);
 
-            entity.Property(room => room.Status)
-                .HasConversion<string>()
-                .HasMaxLength(200);
+            entity.Property(room => room.IsBookable);
             
             entity.ToTable(t => 
                 t.HasCheckConstraint("CK_Room_RoomNumber_Positive", "[RoomNumber] > 0")

@@ -5,4 +5,4 @@ public interface IGetRoomCapacities
     Task<Dictionary<Guid, RoomCapacity>> Execute(IEnumerable<Guid> roomIds, CancellationToken cancellationToken);
 }
 
-public record RoomCapacity(int AdultsCapacity, int ChildrenCapacity);
+public record RoomCapacity(int AdultsCapacity, int ChildrenCapacity, Guid HotelId);

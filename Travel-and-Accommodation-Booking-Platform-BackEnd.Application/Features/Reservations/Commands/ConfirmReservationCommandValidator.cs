@@ -8,7 +8,6 @@ public class ConfirmReservationCommandValidator : AbstractValidator<ConfirmReser
 {
     public ConfirmReservationCommandValidator(IDateGetter dateGetter, IGetRoomCapacities getRoomCapacities)
     {
-        RuleFor(c => c.HotelId).NotEmpty();
         RuleFor(c => c.UserId).NotEmpty();
         RuleFor(c => c.PaymentMethod).IsInEnum();
 

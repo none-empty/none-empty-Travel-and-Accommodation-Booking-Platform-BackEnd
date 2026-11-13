@@ -41,6 +41,9 @@ public class ExceptionHandler(IProblemDetailsService problemDetailsService) : IE
                     group => group.Select(error => error.ErrorMessage).Distinct().ToArray()))
             : new ProblemDetails();
 
+        if (exception is ConflictException { Conflicts: not null } bookingConflict)
+            problem.Extensions["conflicts"] = bookingConflict.Conflicts;
+
         problem.Status = status;
         problem.Type = "about:blank";
         problem.Title = title;
